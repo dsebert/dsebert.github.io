@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Externe Datei einbinden</title>
+    <script>
+        function loadExternalContent() {
+            fetch('external.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Netzwerkantwort war nicht ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('external-container').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Es gab ein Problem mit der Fetch-Operation:', error);
+                });
+        }
+        window.onload = loadExternalContent;
+    </script>
+</head>
+<body>
+    <h1>Hauptseite</h1>
+    <div id="external-container"></div>
+</body>
+</html>
