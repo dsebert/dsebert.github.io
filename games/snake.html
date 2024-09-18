@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Spiel</title>
+	<link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
+<link rel="stylesheet" type="text/css" href="../style.css">
+    <style>
+        body {
+           
+            flex-direction: column;
+            align-items: center;
+        }
+        canvas {
+            border: 1px solid #000;
+            background-color: #f0f0f0;
+            width: 100%;
+            max-width: 300px; /* Spielfeld Breite */
+            height: auto;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #scoreDisplay {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .controlButton {
+            padding: 15px;
+            font-size: 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+		@media (min-width: 600px) {
+			.controls{
+				display: none;
+			}
+		}
+    </style>
+</head>
+<body>
+<header>
+		<nav>
+			<a href="../index.html">Home</a>
+			<a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
+			<a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
+			<a href="../games/games.html">Games</a>
+			<a href="../impressum.html">Kontakt</a>
+		</nav>
+	</header>
+	<div class="hero2">
+		<h1>Snake</h1>
+		<p>Spiele Snake</p>
+	</div>
+    <canvas id="gameCanvas"></canvas>
+    <div id="menu">
+        <div id="scoreDisplay" style="display: none;"></div>
+        <button id="startButton">Start</button>
+        <button id="pauseButton" style="display: none;">Pause</button>
+    </div>
+    <div class="controls">
+        <button class="controlButton" id="upButton">↑</button><br>
+    </div>
+    <div class="controls">
+        <button class="controlButton" id="leftButton">←</button>
+        <button class="controlButton" id="rightButton">→</button>
+    </div>
+    <div class="controls">
+        <button class="controlButton" id="downButton">↓</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const box = 20;
+        let snake;
+        let direction;
+        let apple;
+        let paused = true;
+        let score = 0;
+        let speed = 150; // Anfangsgeschwindigkeit (langsamer)
+
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const startButton = document.getElementById('startButton');
+        const pauseButton = document.getElementById('pauseButton');
+
+        // Start game
+        startButton.addEventListener('click', startGame);
+        pauseButton.addEventListener('click', togglePause);
+        document.addEventListener('keydown', changeDirection);
+        
+        // Touch control buttons
+        document.getElementById('upButton').addEventListener('click', () => changeDirection({ key: 'ArrowUp' }));
+        document.getElementById('downButton').addEventListener('click', () => changeDirection({ key: 'ArrowDown' }));
+        document.getElementById('leftButton').addEventListener('click', () => changeDirection({ key: 'ArrowLeft' }));
+        document.getElementById('rightButton').addEventListener('click', () => changeDirection({ key: 'ArrowRight' }));
+
+        function startGame() {
+            snake = [{ x: 9 * box, y: 9 * box }];
+            direction = 'RIGHT';
+            apple = spawnApple();
+            score = 0;
+            paused = false;
+            scoreDisplay.style.display = 'none';
+            startButton.style.display = 'none';
+            pauseButton.style.display = 'inline-block';
+            draw();
+        }
+
+        function draw() {
+            if (paused) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Snake
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i === 0) ? 'green' : 'lightgreen';
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            // Apple (Emoji)
+            ctx.font = "40px Arial";
+            ctx.fillText("🍏", apple.x, apple.y + 35); // Position anpassen für Emoji
+
+            // Snake movement
+            const head = { x: snake[0].x, y: snake[0].y };
+
+            if (direction === 'LEFT') head.x -= box;
+            if (direction === 'UP') head.y -= box;
+            if (direction === 'RIGHT') head.x += box;
+            if (direction === 'DOWN') head.y += box;
+
+            // Check for apple collision
+            if (
+                head.x < apple.x + box * 2 &&
+                head.x + box > apple.x &&
+                head.y < apple.y + box * 2 &&
+                head.y + box > apple.y
+            ) {
+                snake.push({}); // add new segment
+                apple = spawnApple(); // respawn apple
+                score++;
+            } else {
+                snake.pop(); // remove last segment
+            }
+
+            // Game over conditions
+            if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height || collision(head, snake)) {
+                showGameOver();
+                return;
+            }
+
+            snake.unshift(head); // add new head
+            setTimeout(draw, speed); // Geschwindigkeit einstellen
+        }
+
+        function changeDirection(event) {
+            if (event.key === 'ArrowLeft' && direction !== 'RIGHT') direction = 'LEFT';
+            if (event.key === 'ArrowUp' && direction !== 'DOWN') direction = 'UP';
+            if (event.key === 'ArrowRight' && direction !== 'LEFT') direction = 'RIGHT';
+            if (event.key === 'ArrowDown' && direction !== 'UP') direction = 'DOWN';
+        }
+
+        function spawnApple() {
+            const x = Math.floor(Math.random() * (canvas.width / (box * 2))) * (box * 2);
+            const y = Math.floor(Math.random() * (canvas.height / (box * 2))) * (box * 2);
+            return { x, y };
+        }
+
+        function collision(head, snake) {
+            for (let i = 0; i < snake.length; i++) {
+                if (head.x === snake[i].x && head.y === snake[i].y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function togglePause() {
+            paused = !paused;
+            if (paused) {
+                pauseButton.textContent = 'Fortsetzen';
+            } else {
+                pauseButton.textContent = 'Pause';
+                draw();
+            }
+        }
+
+        function showGameOver() {
+            paused = true;
+            scoreDisplay.textContent = `Punkte: ${score}`;
+            scoreDisplay.style.display = 'block';
+            startButton.textContent = 'Start'; // Reset button text
+            startButton.style.display = 'inline-block';
+            pauseButton.style.display = 'none';
+        }
+
+        // Set canvas size dynamically
+        function setCanvasSize() {
+            canvas.width = Math.min(window.innerWidth - 40, 400); // Weiter vergrößerte Breite
+            canvas.height = canvas.width;
+        }
+
+        window.addEventListener('resize', setCanvasSize);
+        setCanvasSize();
+    </script>
+	<footer>
+		<p>&copy; 2024 Die nützlichste unnütze Seite im Web. Alle Rechte vorbehalten.</p>
+		<p><a href="impressum.html" style="color: #fff;">Impressum</a></p>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic Tac Toe</title>
+<link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
+<link rel="stylesheet" type="text/css" href="../style.css">
+<style>
+body { font-family: Arial, sans-serif; text-align: center; }
+.grid { display: grid; grid-template-columns: repeat(3, 100px); gap: 5px; margin: 20px auto; }
+.cell { width: 100px; height: 100px; background: #ddd; display: flex; align-items: center; justify-content: center; font-size: 36px; cursor: pointer; }
+.flipped { background: #fff; }
+button { padding: 10px 20px; font-size: 16px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header>
+	<nav>
+		<a href="../index.html">Home</a>
+		<a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
+		<a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
+		<a href="../games/games.html">Games</a>
+		<a href="../impressum.html">Kontakt</a>
+	</nav>
+</header>
+<div class="hero">
+				<h1>Tic Tac Toe</h1>
+				<p>Spiele Tic Tac Toe gegen deine Freunde</p>
+			</div>
+<div>
+<div class="grid" id="grid">
+</div><button id="resetButton" onclick="resetGame()">Neues Spiel</button>
+
+<p id="message"></p>
+</div>
+<script>
+let grid = [];
+let currentPlayer = 'X';
+let gameActive = true;
+
+function createBoard() {
+const gridElement = document.getElementById('grid');
+gridElement.innerHTML = '';
+grid = Array(9).fill(null);
+grid.forEach((_, index) => {
+const cell = document.createElement('div');
+cell.className = 'cell';
+cell.dataset.index = index;
+cell.onclick = () => makeMove(index);
+gridElement.appendChild(cell);
+});
+}
+
+function makeMove(index) {
+if (grid[index] || !gameActive) return;
+grid[index] = currentPlayer;
+document.querySelector(`.cell[data-index="${index}"]`).textContent = currentPlayer;
+
+if (checkWin()) {
+document.getElementById('message').textContent = currentPlayer + ' gewinnt!';
+gameActive = false;
+document.getElementById('resetButton').style.display = 'block';
+return;
+}
+
+currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+}
+
+function checkWin() {
+const winPatterns = [
+[0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontal
+[0, 3, 6], [1, 4, 7], [2, 5, 8], // vertical
+[0, 4, 8], [2, 4, 6] // diagonal
+];
+
+for (let pattern of winPatterns) {
+const [a, b, c] = pattern;
+if (grid[a] && grid[a] === grid[b] && grid[a] === grid[c]) {
+return true;
+}
+}
+return false;
+}
+
+function resetGame() {
+createBoard();
+document.getElementById('message').textContent = '';
+document.getElementById('resetButton').style.display = 'none';
+currentPlayer = 'X';
+gameActive = true;
+}
+
+createBoard();
+</script>
+<footer>
+	<p>&copy; 2024 Die nützlichste unnütze Seite im Web. Alle Rechte vorbehalten.</p>
+	<p><a href="impressum.html" style="color: #fff;">Impressum</a></p>
+</footer>
+</body>
+</html>
