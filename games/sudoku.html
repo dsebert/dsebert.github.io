@@ -35,7 +35,7 @@
         }
 
         .box {
-            border: 2px solid black;
+            border: 1px solid black;
             box-sizing: border-box;
         }
 
@@ -110,6 +110,7 @@
 
     <script>
         let sudokuGrid = [];
+        let solutionGrid = [];
 
         function generateSudoku() {
             const size = parseInt(document.getElementById('size').value);
@@ -124,63 +125,52 @@
 
             let gridClass = (size === 4) ? 'grid-4x4' : 'grid-9x9';
             sudokuGrid = generateValidSudoku(size); // Generiert ein valides Sudoku
-            
-            const grid = document.createElement('div');
-            grid.classList.add('grid', gridClass);
+            solutionGrid = sudokuGrid.map(row => row.slice()); // Speichert die Lösung
             
             let presetCount = getPresetCount(size, difficulty);
-            fillSudoku(grid, size, presetCount);
-            
-            sudokuContainer.appendChild(grid);
+            fillSudoku(sudokuContainer, size, presetCount);
         }
 
-        // Funktion, um ein zufälliges, aber gültiges Sudoku zu erzeugen
         function generateValidSudoku(size) {
-            let grid = [];
-            for (let i = 0; i < size; i++) {
-                grid.push(Array(size).fill(null));
-            }
+            let grid = Array.from({ length: size }, () => Array(size).fill(0));
 
-            // Ein einfaches vollständiges Sudoku-Raster erstellen (Placeholder)
             if (size === 4) {
-                grid = [
-                    [1, 2, 3, 4],
-                    [3, 4, 1, 2],
-                    [2, 1, 4, 3],
-                    [4, 3, 2, 1]
-                ];
+                solveSudoku(grid);
             } else if (size === 9) {
-                grid = [
-                    [5, 3, 4, 6, 7, 8, 9, 1, 2],
-                    [6, 7, 2, 1, 9, 5, 3, 4, 8],
-                    [1, 9, 8, 3, 4, 2, 5, 6, 7],
-                    [8, 5, 9, 7, 6, 1, 4, 2, 3],
-                    [4, 2, 6, 8, 5, 3, 7, 9, 1],
-                    [7, 1, 3, 9, 2, 4, 8, 5, 6],
-                    [9, 6, 1, 5, 3, 7, 2, 8, 4],
-                    [2, 8, 7, 4, 1, 9, 6, 3, 5],
-                    [3, 4, 5, 2, 8, 6, 1, 7, 9]
-                ];
-            }
-
-            // Zufällige Vertauschung von Reihen und Spalten im gleichen Block, um Varianz zu erzeugen
-            for (let i = 0; i < size; i += Math.sqrt(size)) {
-                shuffle(grid.slice(i, i + Math.sqrt(size)));
+                solveSudoku(grid);
             }
 
             return grid;
         }
 
-        // Funktion zum zufälligen Mischen eines Arrays (Fisher-Yates)
+        function solveSudoku(grid) {
+            // Eine einfache Methode zur Sudoku-Lösung
+            // Dies ist ein Platzhalter, der ein Sudoku lösen sollte
+            fillGrid(grid);
+        }
+
+        function fillGrid(grid) {
+            // Füllt das Sudoku-Raster (dies ist nur ein Platzhalter und keine vollständige Implementierung)
+            const size = grid.length;
+            const numbers = Array.from({ length: size }, (_, i) => i + 1);
+
+            for (let row = 0; row < size; row++) {
+                const shuffledNumbers = shuffle([...numbers]);
+                for (let col = 0; col < size; col++) {
+                    grid[row][col] = shuffledNumbers[col];
+                }
+            }
+        }
+
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
+            return array;
         }
 
-        function fillSudoku(gridElement, size, presetCount) {
-            let filledCells = 0;
+        function fillSudoku(container, size, presetCount) {
             let grid = sudokuGrid;
             for (let row = 0; row < size; row++) {
                 for (let col = 0; col < size; col++) {
@@ -189,15 +179,15 @@
                     input.maxLength = '1';
                     input.classList.add('box');
                     
-                    if (filledCells < presetCount && Math.random() > 0.5) {
+                    if (Math.random() > 0.5 && presetCount > 0) {
                         input.value = grid[row][col];
                         input.disabled = true;
-                        filledCells++;
+                        presetCount--;
                     } else {
                         input.value = '';
                     }
                     
-                    gridElement.appendChild(input);
+                    container.appendChild(input);
                 }
             }
         }
@@ -219,6 +209,7 @@
             const message = document.getElementById('message');
             const newSudokuButton = document.getElementById('new-sudoku');
             let isCorrect = true;
+            let allFilled = true;
 
             inputs.forEach((input, index) => {
                 const row = Math.floor(index / size);
@@ -226,13 +217,13 @@
                 const userValue = input.value.trim();
 
                 if (userValue === '') {
-                    isCorrect = false;
-                } else if (parseInt(userValue) !== sudokuGrid[row][col]) {
+                    allFilled = false;
+                } else if (parseInt(userValue) !== solutionGrid[row][col]) {
                     isCorrect = false;
                 }
             });
 
-            if (isCorrect) {
+            if (isCorrect && allFilled) {
                 message.innerHTML = 'Sudoku korrekt gelöst!';
                 newSudokuButton.style.display = 'inline';
             } else {
