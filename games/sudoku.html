@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamisches Sudoku</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        input {
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            font-size: 20px;
+        }
+        .box {
+            border: 1px solid #000;
+        }
+        .thick-border {
+            border: 2px solid #000;
+        }
+        .size-option {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sudoku Generator</h1>
+
+    <div class="size-option">
+        <label for="size">Wähle die Größe des Spielfelds: </label>
+        <select id="size" onchange="generateSudoku()">
+            <option value="4">4x4</option>
+            <option value="9">9x9</option>
+        </select>
+    </div>
+
+    <table id="sudoku-board"></table>
+</div>
+
+<script>
+    function generateSudoku() {
+        const size = parseInt(document.getElementById('size').value);
+        const board = document.getElementById('sudoku-board');
+        board.innerHTML = ''; // Vorherige Inhalte entfernen
+
+        for (let row = 0; row < size; row++) {
+            const tr = document.createElement('tr');
+            for (let col = 0; col < size; col++) {
+                const td = document.createElement('td');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.maxLength = '1';
+                td.appendChild(input);
+
+                // Styling für 4x4 Sudoku
+                if (size === 4) {
+                    td.classList.add('box');
+                    if (row % 2 === 1 && col % 2 === 1) {
+                        td.classList.add('thick-border');
+                    }
+                    if (row === 1 || row === 3) {
+                        td.style.borderTop = '2px solid black';
+                    }
+                    if (col === 1 || col === 3) {
+                        td.style.borderLeft = '2px solid black';
+                    }
+                }
+
+                // Styling für 9x9 Sudoku
+                if (size === 9) {
+                    td.classList.add('box');
+                    if (row % 3 === 2) {
+                        td.style.borderBottom = '2px solid black';
+                    }
+                    if (col % 3 === 2) {
+                        td.style.borderRight = '2px solid black';
+                    }
+                    if (row === 0) {
+                        td.style.borderTop = '2px solid black';
+                    }
+                    if (col === 0) {
+                        td.style.borderLeft = '2px solid black';
+                    }
+                }
+
+                tr.appendChild(td);
+            }
+            board.appendChild(tr);
+        }
+    }
+
+    // Initiales Sudoku erstellen (4x4 Standard)
+    window.onload = generateSudoku;
+</script>
+
+</body>
+</html>
