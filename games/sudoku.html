@@ -18,7 +18,7 @@
         .grid {
             display: grid;
             margin: 0 auto;
-            gap: 1px;
+            gap: 0;
         }
 
         input {
@@ -45,11 +45,11 @@
             grid-template-rows: repeat(4, 50px);
         }
 
-        .grid-4x4 .box:nth-child(2), .grid-4x4 .box:nth-child(4) {
+        .grid-4x4 .box:nth-child(2n), .grid-4x4 .box:nth-child(4n) {
             border-right: 2px solid black;
         }
 
-        .grid-4x4 .box:nth-child(n+9):nth-child(-n+12) {
+        .grid-4x4 .box:nth-child(5n+1) {
             border-bottom: 2px solid black;
         }
 
@@ -59,14 +59,14 @@
             grid-template-rows: repeat(9, 50px);
         }
 
-        .grid-9x9 .box:nth-child(3), .grid-9x9 .box:nth-child(6), 
-        .grid-9x9 .box:nth-child(27), .grid-9x9 .box:nth-child(30), 
-        .grid-9x9 .box:nth-child(33), .grid-9x9 .box:nth-child(54), 
+        .grid-9x9 .box:nth-child(3n), .grid-9x9 .box:nth-child(6n),
+        .grid-9x9 .box:nth-child(27), .grid-9x9 .box:nth-child(30),
+        .grid-9x9 .box:nth-child(33), .grid-9x9 .box:nth-child(54),
         .grid-9x9 .box:nth-child(57), .grid-9x9 .box:nth-child(60) {
             border-right: 2px solid black;
         }
 
-        .grid-9x9 .box:nth-child(n+19):nth-child(-n+27), 
+        .grid-9x9 .box:nth-child(n+19):nth-child(-n+27),
         .grid-9x9 .box:nth-child(n+46):nth-child(-n+54) {
             border-bottom: 2px solid black;
         }
@@ -128,7 +128,7 @@
             solutionGrid = sudokuGrid.map(row => row.slice()); // Speichert die Lösung
             
             let presetCount = getPresetCount(size, difficulty);
-            fillSudoku(sudokuContainer, size, presetCount);
+            fillSudoku(sudokuContainer, size, presetCount, gridClass);
         }
 
         function generateValidSudoku(size) {
@@ -160,11 +160,8 @@
             return array;
         }
 
-        function fillSudoku(container, size, presetCount) {
+        function fillSudoku(container, size, presetCount, gridClass) {
             let grid = sudokuGrid;
-            const gridClass = (size === 4) ? 'grid-4x4' : 'grid-9x9';
-            const inputSize = (size === 4) ? 50 : 50;
-            
             container.className = `grid ${gridClass}`;
             
             for (let row = 0; row < size; row++) {
@@ -173,8 +170,6 @@
                     input.type = 'text';
                     input.maxLength = '1';
                     input.classList.add('box');
-                    input.style.width = `${inputSize}px`;
-                    input.style.height = `${inputSize}px`;
                     
                     if (Math.random() > 0.5 && presetCount > 0) {
                         input.value = grid[row][col];
