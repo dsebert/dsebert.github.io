@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online HTML-Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #editor-container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            height: 80vh;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #preview {
+            width: 50%;
+            border: none;
+            height: 100%;
+        }
+        #code-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+        }
+        textarea {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: none;
+            height: calc(100% - 50px); /* height minus the button */
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            align-self: center;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor-container">
+        <div id="code-container">
+            <textarea id="html-input">
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einfaches Beispiel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Willkommen auf meiner Webseite!</h1>
+    <p>Dies ist ein einfaches Beispiel für eine HTML-Seite.</p>
+</body>
+</html>
+            </textarea>
+            <button onclick="updatePreview()">Vorschau aktualisieren</button>
+        </div>
+        <iframe id="preview" src="about:blank"></iframe>
+    </div>
+
+    <script>
+        function updatePreview() {
+            var htmlCode = document.getElementById('html-input').value;
+            var previewFrame = document.getElementById('preview');
+            var doc = previewFrame.document || previewFrame.contentDocument || previewFrame.contentWindow.document;
+            doc.open();
+            doc.write(htmlCode);
+            doc.close();
+        }
+
+        // Initialer Aufruf, um die Standardvorschau anzuzeigen
+        updatePreview();
+    </script>
+</body>
+</html>
