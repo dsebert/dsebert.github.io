@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta name="language" content="de">
+    <meta name="keywords" content="raspberry pi, projekte, tutorials, hardware, software, filter">
+    <meta name="description" content="Eine Seite für Raspberry Pi Projekte. Entdecke und suche Projekte nach Schlagwörtern.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Raspberry Pi Projekte</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="hardware.html">Hardware-Projekte</a>
+            <a href="software.html">Software-Projekte</a>
+            <a href="tutorials.html">Tutorials</a>
+            <a href="kontakt.html">Kontakt</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>Willkommen auf der Raspberry Pi Projektseite!</h1>
+        <p>Entdecke großartige Projekte und suche nach deinen Interessen.</p>
+    </div>
+
+    <div class="search-container">
+        <label for="search">Suche nach Projekten:</label>
+        <input type="text" id="search" placeholder="Suchbegriff eingeben...">
+    </div>
+
+    <div class="container">
+        <section class="category" data-title="Hardware-Projekte" data-description="Projekte, die sich auf Raspberry Pi Hardware konzentrieren.">
+            <h2>Hardware-Projekte</h2>
+            <p>Projekte, die sich auf Raspberry Pi Hardware konzentrieren.</p>
+            <a href="hardware.html">Mehr erfahren</a>
+        </section>
+
+        <section class="category" data-title="Software-Projekte" data-description="Entwickle Software für deinen Raspberry Pi.">
+            <h2>Software-Projekte</h2>
+            <p>Entwickle Software für deinen Raspberry Pi.</p>
+            <a href="software.html">Mehr erfahren</a>
+        </section>
+
+        <section class="category" data-title="Tutorials" data-description="Schritt-für-Schritt Anleitungen, um deine Projekte zu realisieren.">
+            <h2>Tutorials</h2>
+            <p>Schritt-für-Schritt Anleitungen, um deine Projekte zu realisieren.</p>
+            <a href="tutorials.html">Mehr erfahren</a>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Raspberry Pi Projekte. Alle Rechte vorbehalten.</p>
+        <p><a href="kontakt.html" style="color: #fff;">Kontakt</a></p>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('search');
+        const sections = document.querySelectorAll('.category');
+
+        searchInput.addEventListener('input', (event) => {
+            const searchTerm = event.target.value.toLowerCase();
+            sections.forEach(section => {
+                const title = section.dataset.title.toLowerCase();
+                const description = section.dataset.description.toLowerCase();
+
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    section.style.display = 'block';
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
