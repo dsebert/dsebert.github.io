@@ -225,9 +225,9 @@
                 const col = index % size;
                 const userValue = input.value.trim();
 
-                if (userValue === '') return; // Skip empty cells
-
-                if (parseInt(userValue) !== sudokuGrid[row][col]) {
+                if (userValue === '') {
+                    isCorrect = false;
+                } else if (parseInt(userValue) !== sudokuGrid[row][col]) {
                     isCorrect = false;
                 }
             });
@@ -236,7 +236,7 @@
                 message.innerHTML = 'Sudoku korrekt gelöst!';
                 newSudokuButton.style.display = 'inline';
             } else {
-                message.innerHTML = 'Es gibt Fehler im Sudoku.';
+                message.innerHTML = 'Es gibt Fehler im Sudoku oder es sind noch Felder leer.';
                 newSudokuButton.style.display = 'none';
             }
         }
