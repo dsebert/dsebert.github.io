@@ -70,6 +70,16 @@
         .grid-9x9 .box:nth-child(n+46):nth-child(-n+54) {
             border-bottom: 2px solid black;
         }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        #new-sudoku {
+            display: none;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -94,6 +104,9 @@
     <div id="sudoku-container"></div>
     
     <button onclick="checkSudoku()">Überprüfen</button>
+    
+    <div id="message"></div>
+    <button id="new-sudoku" onclick="generateSudoku()">Neues Sudoku erstellen</button>
 
     <script>
         let sudokuGrid = [];
@@ -102,8 +115,13 @@
             const size = parseInt(document.getElementById('size').value);
             const difficulty = document.getElementById('difficulty').value;
             const sudokuContainer = document.getElementById('sudoku-container');
-            sudokuContainer.innerHTML = '';
+            const message = document.getElementById('message');
+            const newSudokuButton = document.getElementById('new-sudoku');
             
+            sudokuContainer.innerHTML = '';
+            message.innerHTML = '';
+            newSudokuButton.style.display = 'none';
+
             let gridClass = (size === 4) ? 'grid-4x4' : 'grid-9x9';
             sudokuGrid = generateValidSudoku(size); // Generiert ein valides Sudoku
             
@@ -198,6 +216,8 @@
         function checkSudoku() {
             const size = parseInt(document.getElementById('size').value);
             const inputs = document.querySelectorAll('#sudoku-container input');
+            const message = document.getElementById('message');
+            const newSudokuButton = document.getElementById('new-sudoku');
             let isCorrect = true;
 
             inputs.forEach((input, index) => {
@@ -213,9 +233,11 @@
             });
 
             if (isCorrect) {
-                alert('Sudoku korrekt gelöst!');
+                message.innerHTML = 'Sudoku korrekt gelöst!';
+                newSudokuButton.style.display = 'inline';
             } else {
-                alert('Es gibt Fehler im Sudoku.');
+                message.innerHTML = 'Es gibt Fehler im Sudoku.';
+                newSudokuButton.style.display = 'none';
             }
         }
 
