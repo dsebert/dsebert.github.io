@@ -135,25 +135,15 @@
             let grid = Array.from({ length: size }, () => Array(size).fill(0));
 
             if (size === 4) {
-                solveSudoku(grid);
+                fillGrid(grid, size, [1, 2, 3, 4]);
             } else if (size === 9) {
-                solveSudoku(grid);
+                fillGrid(grid, size, Array.from({ length: 9 }, (_, i) => i + 1));
             }
 
             return grid;
         }
 
-        function solveSudoku(grid) {
-            // Eine einfache Methode zur Sudoku-Lösung
-            // Dies ist ein Platzhalter, der ein Sudoku lösen sollte
-            fillGrid(grid);
-        }
-
-        function fillGrid(grid) {
-            // Füllt das Sudoku-Raster (dies ist nur ein Platzhalter und keine vollständige Implementierung)
-            const size = grid.length;
-            const numbers = Array.from({ length: size }, (_, i) => i + 1);
-
+        function fillGrid(grid, size, numbers) {
             for (let row = 0; row < size; row++) {
                 const shuffledNumbers = shuffle([...numbers]);
                 for (let col = 0; col < size; col++) {
@@ -172,12 +162,19 @@
 
         function fillSudoku(container, size, presetCount) {
             let grid = sudokuGrid;
+            const gridClass = (size === 4) ? 'grid-4x4' : 'grid-9x9';
+            const inputSize = (size === 4) ? 50 : 50;
+            
+            container.className = `grid ${gridClass}`;
+            
             for (let row = 0; row < size; row++) {
                 for (let col = 0; col < size; col++) {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.maxLength = '1';
                     input.classList.add('box');
+                    input.style.width = `${inputSize}px`;
+                    input.style.height = `${inputSize}px`;
                     
                     if (Math.random() > 0.5 && presetCount > 0) {
                         input.value = grid[row][col];
