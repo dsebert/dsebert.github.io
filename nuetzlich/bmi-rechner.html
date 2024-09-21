@@ -1,136 +1,142 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BMI-Rechner</title>
-<style>
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f9;
-    margin: 0;
-    padding: 20px;
-}
-input {
-    padding: 10px;
-    font-size: 16px;
-    margin: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: calc(20% - 22px);
-}
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-button:hover {
-    background-color: #0056b3;
-}
-.bmi-result {
-    margin-top: 20px;
-    font-size: 24px;
-}
-.bmi-value {
-    font-size: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin: 10px auto;
-    display: inline-block;
-    width: 100px;
-}
-.bmi-description {
-    text-align: left;
-    margin-top: 20px;
-    margin: 10px;
-    font-size: 16px;
-    color: #333;
-    line-height: 1.5;
-}
-.disclaimer {
-    margin-top: 30px;
-    margin: 10px;
-    font-size: 14px;
-    color: #888;
-    line-height: 1.2;
-    border-top: 1px solid #8c8c8c;
-    padding-top: 10px;
-}
-</style>
-<link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
-<link rel="stylesheet" type="text/css" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI-Rechner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: calc(20% - 22px);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .bmi-result {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+        .bmi-value {
+            font-size: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px auto;
+            display: inline-block;
+            width: 100px;
+        }
+        .bmi-description {
+            text-align: left;
+            margin-top: 20px;
+            margin: 10px;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .disclaimer {
+            margin-top: 30px;
+            margin: 10px;
+            font-size: 14px;
+            color: #888;
+            line-height: 1.2;
+            border-top: 1px solid #8c8c8c;
+            padding-top: 10px;
+        }
+    </style>
+    <link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" type="text/css" href="../style.css">
 </head>
 <body>
-<header>
-    <nav>
-        <a href="../index.html">Home</a>
-        <a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
-        <a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
-        <a href="../games/games.html">Games</a>
-        <a href="../impressum.html">Kontakt</a>
-    </nav>
-</header>
-<div class="hero2">
-    <h1>BMI-Rechner</h1>
-    <p>Berechnen Sie Ihren Body Mass Index anhand Ihres Gewichtes, Ihrer Größe und Ihres Alters!</p>
-</div>
-<input type="number" id="height" placeholder="Körpergröße in cm" step="0.5">
-<input type="number" id="weight" placeholder="Gewicht in kg" step="0.1">
-<input type="number" id="age" placeholder="Alter in Jahren">
-<button onclick="calculateBMI()">Berechne BMI</button>
-<div class="bmi-result">
-    <label for="bmi-output">Ihr BMI:</label>
-    <input type="text" id="bmi-output" class="bmi-value" readonly>
-</div>
-<div class="bmi-description" id="bmi-description">
-    <p>Der Body Mass Index (BMI) ist eine einfache Methode, um das Verhältnis von Körpergewicht zu Körpergröße zu bewerten.
-    Er wird berechnet, indem man das Gewicht in Kilogramm durch das Quadrat der Körpergröße in Metern teilt.<br>
-    Dafür musst du einfach deine Körpergröße in cm, dein Gewicht in kg und dein Alter eingeben und auf “Berechne BMI” klicken.</p>
-</div>
-<div class="disclaimer">
-    <p><strong>Haftungsausschluss:</strong> Die hier bereitgestellten Informationen sind nur allgemeine Anhaltspunkte und ersetzen keinen medizinischen Rat. Bitte konsultieren Sie einen Arzt oder Gesundheitsdienstleister, um eine genaue Beurteilung Ihrer Gesundheit zu erhalten.<br>
-    Der Betreiber dieser Website übernimmt keine Haftung für mögliche gesundheitliche Risiken oder Schäden, die durch die Nutzung dieser Informationen entstehen könnten.</p>
-</div>
+    <header>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
+            <a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
+            <a href="../games/games.html">Games</a>
+            <a href="../impressum.html">Kontakt</a>
+        </nav>
+    </header>
+    <div class="hero2">
+        <h1>BMI-Rechner</h1>
+        <p>
+            Berechnen Sie Ihren Body Mass Index anhand Ihres Gewichtes, Ihrer Größe und Ihres Alters!
+        </p>
+    </div>
+    <input type="number" id="height" placeholder="Körpergröße in cm" step="0.5">
+    <input type="number" id="weight" placeholder="Gewicht in kg" step="0.1">
+    <input type="number" id="age" placeholder="Alter in Jahren">
+    <button onclick="calculateBMI()">Berechne BMI</button>
+    <div class="bmi-result">
+        <label for="bmi-output">Ihr BMI:</label>
+        <input type="text" id="bmi-output" class="bmi-value" readonly>
+    </div>
+    <div class="bmi-description" id="bmi-description">
+        <p>
+            Der Body Mass Index (BMI) ist eine einfache Methode, um das Verhältnis von Körpergewicht zu Körpergröße zu bewerten.
+            Er wird berechnet, indem man das Gewicht in Kilogramm durch das Quadrat der Körpergröße in Metern teilt.<br>
+            Dafür musst du einfach deine Körpergröße in cm, dein Gewicht in kg und dein Alter eingeben und auf “Berechne BMI” klicken.
+        </p>
+    </div>
+    <div class="disclaimer">
+        <p>
+            <strong>Haftungsausschluss:</strong> Die hier bereitgestellten Informationen sind nur allgemeine Anhaltspunkte und ersetzen keinen medizinischen Rat. Bitte konsultieren Sie einen Arzt oder Gesundheitsdienstleister, um eine genaue Beurteilung Ihrer Gesundheit zu erhalten.<br>
+            Der Betreiber dieser Website übernimmt keine Haftung für mögliche gesundheitliche Risiken oder Schäden, die durch die Nutzung dieser Informationen entstehen könnten.
+        </p>
+    </div>
 
-<script>
-function calculateBMI() {
-    const height = parseFloat(document.getElementById('height').value) / 100;
-    const weight = parseFloat(document.getElementById('weight').value);
-    const age = parseInt(document.getElementById('age').value);
+    <script>
+        function calculateBMI() {
+            const height = parseFloat(document.getElementById('height').value) / 100;
+            const weight = parseFloat(document.getElementById('weight').value);
+            const age = parseInt(document.getElementById('age').value);
 
-    if (isNaN(height) || isNaN(weight) || isNaN(age) || height <= 0 || weight <= 0 || age <= 0) {
-        alert('Bitte geben Sie gültige Werte für Größe, Gewicht und Alter ein.');
-        return;
-    }
+            if (isNaN(height) || isNaN(weight) || isNaN(age) || height <= 0 || weight <= 0 || age <= 0) {
+                alert('Bitte geben Sie gültige Werte für Größe, Gewicht und Alter ein.');
+                return;
+            }
 
-    const bmi = weight / (height * height);
-    document.getElementById('bmi-output').value = bmi.toFixed(2);
+            const bmi = weight / (height * height);
+            document.getElementById('bmi-output').value = bmi.toFixed(2);
 
-    let description;
+            let description;
 
-    if (age < 18) {
-        description = 'BMI-Rechner für Kinder und Jugendliche ist anders zu bewerten. Bitte konsultieren Sie Ihren Kinderarzt für genaue Informationen.';
-    } else if (bmi < 18.5) {
-        description = 'Ihr BMI zeigt, dass Sie untergewichtig sind. Ein BMI unter 18.5 deutet darauf hin, dass Ihr Gewicht im Verhältnis zu Ihrer Körpergröße zu niedrig ist. Es ist ratsam, mit einem Arzt oder Ernährungsberater zu sprechen.';
-    } else if (bmi < 25) {
-        description = 'Ihr BMI liegt im Normalbereich. Ein BMI zwischen 18.5 und 24.9 gilt als gesund und normal.';
-    } else {
-        description = 'Ihr BMI zeigt Übergewicht an. Ein BMI von 25 oder mehr weist darauf hin, dass Ihr Gewicht im Verhältnis zu Ihrer Körpergröße höher ist.';
-    }
+            if (age < 18) {
+                description = 'BMI-Rechner für Kinder und Jugendliche ist anders zu bewerten. Bitte konsultieren Sie Ihren Kinderarzt für genaue Informationen.';
+            } else if (bmi < 18.5) {
+                description = 'Ihr BMI zeigt, dass Sie untergewichtig sind. Ein BMI unter 18.5 deutet darauf hin, dass Ihr Gewicht im Verhältnis zu Ihrer Körpergröße zu niedrig ist. Es ist ratsam, mit einem Arzt oder Ernährungsberater zu sprechen.';
+            } else if (bmi < 25) {
+                description = 'Ihr BMI liegt im Normalbereich. Ein BMI zwischen 18.5 und 24.9 gilt als gesund und normal.';
+            } else {
+                description = 'Ihr BMI zeigt Übergewicht an. Ein BMI von 25 oder mehr weist darauf hin, dass Ihr Gewicht im Verhältnis zu Ihrer Körpergröße höher ist.';
+            }
 
-    if (age >= 65) {
-        description += ' Beachten Sie, dass der BMI für ältere Menschen nicht so aussagekräftig sein kann. Muskelmasse nimmt im Alter ab, was den BMI beeinflussen kann.';
-    }
+            if (age >= 65) {
+                description += ' Beachten Sie, dass der BMI für ältere Menschen nicht so aussagekräftig sein kann. Muskelmasse nimmt im Alter ab, was den BMI beeinflussen kann.';
+            }
 
-    document.getElementById('bmi-description').textContent = description;
-}
-</script>
+            document.getElementById('bmi-description').textContent = description;
+        }
+    </script>
 </body>
 </html>
