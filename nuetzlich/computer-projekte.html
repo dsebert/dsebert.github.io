@@ -45,48 +45,48 @@
 
         <section class="category" data-title="HTML Projekte" data-description="Erstelle coole Websites für deinen Browser.">
             <h2>HTML Projekte</h2></h2>
-            <p>
-                Erstelle coole Websites für deinen Browser.
-            </p>
-            <a href="html.html">Mehr erfahren</a>
-        </section>
-
-        <section class="category" data-title="Batch und VBS Projekte" data-description="Schritt-für-Schritt Anleitungen, um Schreckviren zu Programmieren und deinen Computerzu automatisieren.">
-            <h2>Batch und VBS Projekte</h2>
-            <p>
-                Schritt-für-Schritt Anleitungen, um <strong>Schreckviren</strong> zu Programmieren und deinen Computerzu automatisieren.
-            </p>
-            <a href="batch_vbs.html">Mehr erfahren</a>
-        </section>
-    </div>
-
-    <footer>
         <p>
-            &copy; 2024 Raspberry Pi Projekte. Alle Rechte vorbehalten.
+            Erstelle coole Websites für deinen Browser.
         </p>
+        <a href="html.html">Mehr erfahren</a>
+    </section>
+
+    <section class="category" data-title="Batch und VBS Projekte" data-description="Schritt-für-Schritt Anleitungen, um Schreckviren zu Programmieren und deinen Computerzu automatisieren.">
+        <h2>Batch und VBS Projekte</h2>
         <p>
-            <a href="kontakt.html" style="color: #fff;">Kontakt</a>
+            Schritt-für-Schritt Anleitungen, um <strong>Schreckviren</strong> zu Programmieren und deinen Computerzu automatisieren.
         </p>
-    </footer>
+        <a href="batch_vbs.html">Mehr erfahren</a>
+    </section>
+</div>
 
-    <script>
-        const searchInput = document.getElementById('search');
-        const sections = document.querySelectorAll('.category');
+<footer>
+    <p>
+        &copy; 2024 Raspberry Pi Projekte. Alle Rechte vorbehalten.
+    </p>
+    <p>
+        <a href="kontakt.html" style="color: #fff;">Kontakt</a>
+    </p>
+</footer>
 
-        searchInput.addEventListener('input', (event) => {
-            const searchTerm = event.target.value.toLowerCase();
-            sections.forEach(section => {
-                const title = section.dataset.title.toLowerCase();
-                const description = section.dataset.description.toLowerCase();
+<script>
+    const searchInput = document.getElementById('search');
+    const sections = document.querySelectorAll('.category');
 
-                if (title.includes(searchTerm) || description.includes(searchTerm)) {
-                    section.style.display = 'block';
-                } else {
-                    section.style.display = 'none';
-                }
-            });
+    searchInput.addEventListener('input', (event) => {
+        const searchTerm = event.target.value.toLowerCase();
+        sections.forEach(section => {
+            const title = section.dataset.title.toLowerCase();
+            const description = section.dataset.description.toLowerCase();
+
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>
