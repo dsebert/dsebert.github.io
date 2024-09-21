@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-	<link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
-	<link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sudoku Spiel</title>
@@ -84,19 +84,21 @@
     </style>
 </head>
 <body>
-<header>
-	<nav>
-		<a href="../index.html">Home</a>
-		<a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
-		<a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
-		<a href="../games/games.html">Games</a>
-		<a href="../impressum.html">Kontakt</a>
-	</nav>
-</header>
-<div class="hero">
-				<h1>Sudoku</h1>
-				<p>Spiele Sudoku</p>
-			</div>
+    <header>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
+            <a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
+            <a href="../games/games.html">Games</a>
+            <a href="../impressum.html">Kontakt</a>
+        </nav>
+    </header>
+    <div class="hero">
+        <h1>Sudoku</h1>
+        <p>
+            Spiele Sudoku
+        </p>
+    </div>
 
     <div>
         <label for="size">Spielfeldgröße: </label>
@@ -105,7 +107,7 @@
             <option value="9">9x9</option>
         </select>
     </div>
-    
+
     <div>
         <label for="difficulty">Schwierigkeit: </label>
         <select id="difficulty" onchange="generateSudoku()">
@@ -114,11 +116,11 @@
             <option value="hard">Schwer</option>
         </select>
     </div>
-    
+
     <div id="sudoku-container"></div>
-    
+
     <button onclick="checkSudoku()">Überprüfen</button>
-    
+
     <div id="message"></div>
     <button id="new-sudoku" onclick="generateSudoku()">Neues Sudoku erstellen</button>
 
@@ -132,26 +134,30 @@
             const sudokuContainer = document.getElementById('sudoku-container');
             const message = document.getElementById('message');
             const newSudokuButton = document.getElementById('new-sudoku');
-            
+
             sudokuContainer.innerHTML = '';
             message.innerHTML = '';
             newSudokuButton.style.display = 'none';
 
-            let gridClass = (size === 4) ? 'grid-4x4' : 'grid-9x9';
+            let gridClass = (size === 4) ? 'grid-4x4': 'grid-9x9';
             sudokuGrid = generateValidSudoku(size); // Generiert ein valides Sudoku
             solutionGrid = sudokuGrid.map(row => row.slice()); // Speichert die Lösung
-            
+
             let presetCount = getPresetCount(size, difficulty);
             fillSudoku(sudokuContainer, size, presetCount, gridClass);
         }
 
         function generateValidSudoku(size) {
-            let grid = Array.from({ length: size }, () => Array(size).fill(0));
+            let grid = Array.from({
+                length: size
+            }, () => Array(size).fill(0));
 
             if (size === 4) {
                 fillGrid(grid, size, [1, 2, 3, 4]);
             } else if (size === 9) {
-                fillGrid(grid, size, Array.from({ length: 9 }, (_, i) => i + 1));
+                fillGrid(grid, size, Array.from({
+                    length: 9
+                }, (_, i) => i + 1));
             }
 
             return grid;
@@ -169,7 +175,9 @@
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+                [array[i],
+                    array[j]] = [array[j],
+                    array[i]];
             }
             return array;
         }
@@ -177,14 +185,14 @@
         function fillSudoku(container, size, presetCount, gridClass) {
             let grid = sudokuGrid;
             container.className = `grid ${gridClass}`;
-            
+
             for (let row = 0; row < size; row++) {
                 for (let col = 0; col < size; col++) {
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.maxLength = '1';
                     input.classList.add('box');
-                    
+
                     if (Math.random() > 0.5 && presetCount > 0) {
                         input.value = grid[row][col];
                         input.disabled = true;
@@ -192,7 +200,7 @@
                     } else {
                         input.value = '';
                     }
-                    
+
                     container.appendChild(input);
                 }
             }
@@ -201,11 +209,11 @@
         function getPresetCount(size, difficulty) {
             switch (difficulty) {
                 case 'easy':
-                    return (size === 4) ? 8 : 36;
+                    return (size === 4) ? 8: 36;
                 case 'medium':
-                    return (size === 4) ? 6 : 28;
+                    return (size === 4) ? 6: 28;
                 case 'hard':
-                    return (size === 4) ? 4 : 22;
+                    return (size === 4) ? 4: 22;
             }
         }
 
@@ -227,22 +235,26 @@
                 } else if (parseInt(userValue) !== solutionGrid[row][col]) {
                     isCorrect = false;
                 }
-            });
+        });
 
-            if (isCorrect && allFilled) {
-                message.innerHTML = 'Sudoku korrekt gelöst!';
-                newSudokuButton.style.display = 'inline';
-            } else {
-                message.innerHTML = 'Es gibt Fehler im Sudoku oder es sind noch Felder leer.';
-                newSudokuButton.style.display = 'none';
-            }
+        if (isCorrect && allFilled) {
+            message.innerHTML = 'Sudoku korrekt gelöst!';
+            newSudokuButton.style.display = 'inline';
+        } else {
+            message.innerHTML = 'Es gibt Fehler im Sudoku oder es sind noch Felder leer.';
+            newSudokuButton.style.display = 'none';
         }
+    }
 
-        generateSudoku(); // Startet das erste Sudoku bei Seitenaufruf
-    </script>
+    generateSudoku(); // Startet das erste Sudoku bei Seitenaufruf
+</script>
 <footer>
-	<p>&copy; 2024 Die nützlichste unnütze Seite im Web. Alle Rechte vorbehalten.</p>
-	<p><a href="../impressum.html" style="color: #fff;">Impressum</a></p>
+    <p>
+        &copy; 2024 Die nützlichste unnütze Seite im Web. Alle Rechte vorbehalten.
+    </p>
+    <p>
+        <a href="../impressum.html" style="color: #fff;">Impressum</a>
+    </p>
 </footer>
 </body>
 </html>
