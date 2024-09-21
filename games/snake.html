@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Snake Spiel</title>
-	<link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
-<link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" type="text/css" href="../style.css">
     <style>
         body {
-           
+
             flex-direction: column;
             align-items: center;
         }
@@ -16,7 +16,8 @@
             border: 1px solid #000;
             background-color: #f0f0f0;
             width: 100%;
-            max-width: 300px; /* Spielfeld Breite */
+            max-width: 300px;
+            /* Spielfeld Breite */
             height: auto;
         }
         button {
@@ -45,27 +46,29 @@
             margin: 5px;
             cursor: pointer;
         }
-		@media (min-width: 705px) {
-			.controls{
-				display: none;
-			}
-		}
+@media (min-width: 705px) {
+            .controls {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
-<header>
-		<nav>
-			<a href="../index.html">Home</a>
-			<a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
-			<a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
-			<a href="../games/games.html">Games</a>
-			<a href="../impressum.html">Kontakt</a>
-		</nav>
-	</header>
-	<div class="hero2">
-		<h1>Snake</h1>
-		<p>Spiele Snake</p>
-	</div>
+    <header>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
+            <a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
+            <a href="../games/games.html">Games</a>
+            <a href="../impressum.html">Kontakt</a>
+        </nav>
+    </header>
+    <div class="hero2">
+        <h1>Snake</h1>
+        <p>
+            Spiele Snake
+        </p>
+    </div>
     <canvas id="gameCanvas"></canvas>
     <div id="menu">
         <div id="scoreDisplay" style="display: none;"></div>
@@ -101,15 +104,26 @@
         startButton.addEventListener('click', startGame);
         pauseButton.addEventListener('click', togglePause);
         document.addEventListener('keydown', changeDirection);
-        
+
         // Touch control buttons
-        document.getElementById('upButton').addEventListener('click', () => changeDirection({ key: 'ArrowUp' }));
-        document.getElementById('downButton').addEventListener('click', () => changeDirection({ key: 'ArrowDown' }));
-        document.getElementById('leftButton').addEventListener('click', () => changeDirection({ key: 'ArrowLeft' }));
-        document.getElementById('rightButton').addEventListener('click', () => changeDirection({ key: 'ArrowRight' }));
+        document.getElementById('upButton').addEventListener('click', () => changeDirection({
+            key: 'ArrowUp'
+        }));
+        document.getElementById('downButton').addEventListener('click', () => changeDirection({
+            key: 'ArrowDown'
+        }));
+        document.getElementById('leftButton').addEventListener('click', () => changeDirection({
+            key: 'ArrowLeft'
+        }));
+        document.getElementById('rightButton').addEventListener('click', () => changeDirection({
+            key: 'ArrowRight'
+        }));
 
         function startGame() {
-            snake = [{ x: 9 * box, y: 9 * box }];
+            snake = [{
+                x: 9 * box,
+                y: 9 * box
+            }];
             direction = 'RIGHT';
             apple = spawnApple();
             score = 0;
@@ -127,7 +141,7 @@
 
             // Snake
             for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = (i === 0) ? 'green' : 'lightgreen';
+                ctx.fillStyle = (i === 0) ? 'green': 'lightgreen';
                 ctx.fillRect(snake[i].x, snake[i].y, box, box);
             }
 
@@ -136,7 +150,10 @@
             ctx.fillText("🍏", apple.x, apple.y + 35); // Position anpassen für Emoji
 
             // Snake movement
-            const head = { x: snake[0].x, y: snake[0].y };
+            const head = {
+                x: snake[0].x,
+                y: snake[0].y
+            };
 
             if (direction === 'LEFT') head.x -= box;
             if (direction === 'UP') head.y -= box;
@@ -177,7 +194,10 @@
         function spawnApple() {
             const x = Math.floor(Math.random() * (canvas.width / (box * 2))) * (box * 2);
             const y = Math.floor(Math.random() * (canvas.height / (box * 2))) * (box * 2);
-            return { x, y };
+            return {
+                x,
+                y
+            };
         }
 
         function collision(head, snake) {
@@ -217,9 +237,13 @@
         window.addEventListener('resize', setCanvasSize);
         setCanvasSize();
     </script>
-	<footer>
-		<p>&copy; 2024 Die nützlichste unnütze Seite im Web. Alle Rechte vorbehalten.</p>
-		<p><a href="../impressum.html" style="color: #fff;">Impressum</a></p>
-	</footer>
+    <footer>
+        <p>
+            &copy; 2024 Die nützlichste unnütze Seite im Web. Alle Rechte vorbehalten.
+        </p>
+        <p>
+            <a href="../impressum.html" style="color: #fff;">Impressum</a>
+        </p>
+    </footer>
 </body>
 </html>
