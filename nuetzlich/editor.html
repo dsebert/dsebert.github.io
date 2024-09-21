@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online HTML-Editor mit Syntax Highlighting</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-markup.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        #editor-container {
+            display: flex;
+            width: 80%;
+            max-width: 1200px;
+            height: 80vh;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #preview {
+            width: 50%;
+            border: none;
+            height: 100%;
+        }
+        #code-container {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+        }
+        pre {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #f5f5f5;
+            overflow: auto;
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            align-self: center;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="editor-container">
+        <div id="code-container">
+            <pre><code id="html-input" class="language-html">
+                &lt;!DOCTYPE html&gt;
+                &lt;html lang="de"&gt;
+                &lt;head&gt;
+                    &lt;meta charset="UTF-8"&gt;
+                    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+                    &lt;title&gt;Einfaches Beispiel&lt;/title&gt;
+                    &lt;style&gt;
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 20px;
+                            background-color: #fafafa;
+                        }
+                        h1 {
+                            color: #333;
+                        }
+                        p {
+                            color: #666;
+                        }
+                    &lt;/style&gt;
+                &lt;/head&gt;
+                &lt;body&gt;
+                    &lt;h1&gt;Willkommen auf meiner Webseite!&lt;/h1&gt;
+                    &lt;p&gt;Dies ist ein einfaches Beispiel für eine HTML-Seite.&lt;/p&gt;
+                &lt;/body&gt;
+                &lt;/html&gt;
+            </code></pre>
+            <button onclick="updatePreview()">Vorschau aktualisieren</button>
+        </div>
+        <iframe id="preview" src="about:blank"></iframe>
+    </div>
+    
+    <script>
+        function updatePreview() {
+            var htmlCode = document.getElementById('html-input').textContent;
+            var previewFrame = document.getElementById('preview');
+            var doc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+            doc.open();
+            doc.write(htmlCode);
+            doc.close();
+        }
+
+        // Initialer Aufruf, um die Standardvorschau anzuzeigen
+        updatePreview();
+    </script>
+</body>
+</html>
