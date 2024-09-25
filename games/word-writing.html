@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wort-Suchspiel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        #game {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+        #wordDisplay {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        #input {
+            font-size: 20px;
+            padding: 5px;
+        }
+        #score {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wort-Suchspiel</h1>
+    <div id="game">
+        <div id="wordDisplay"></div>
+        <input type="text" id="input" placeholder="Gib das Wort ein" />
+        <button id="submit">Einreichen</button>
+        <div id="score">
+            Punkte: 0
+        </div>
+        <div id="timer">
+            Zeit: 10s
+        </div>
+    </div>
+
+    <script>
+        const words = ['Apfel', 'Banane', 'Kirsche', 'Drachenfrucht', 'Erdbeere', 'Feige'];
+        let score = 0;
+        let timeLeft = 10;
+        let currentWord;
+
+        const wordDisplay = document.getElementById('wordDisplay');
+        const input = document.getElementById('input');
+        const scoreDisplay = document.getElementById('score');
+        const timerDisplay = document.getElementById('timer');
+        const submitButton = document.getElementById('submit');
+
+        function startGame() {
+            timeLeft = 10;
+            score = 0;
+            updateScore();
+            generateWord();
+            startTimer();
+        }
+
+        function generateWord() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            wordDisplay.textContent = currentWord;
+            input.value = '';
+            input.focus();
+        }
+
+        function startTimer() {
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `Zeit: ${timeLeft}s`;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert(`Zeit abgelaufen! Deine Punkte: ${score}`);
+                    startGame();
+                }
+            },
+                1000);
+        }
+
+        submitButton.addEventListener('click', () => {
+            if (input.value === currentWord) {
+                score++;
+                updateScore();
+                generateWord();
+            } else {
+                alert('Falsches Wort! Versuch es noch einmal.');
+            }
+        });
+
+        function updateScore() {
+            scoreDisplay.textContent = `Punkte: ${score}`;
+        }
+
+        startGame();
+    </script>
+</body>
+</html>
