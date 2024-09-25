@@ -71,38 +71,45 @@
         }
 
         // Funktion, um das Spiel zu starten
-        function startGame() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    userLatitude = position.coords.latitude;
-                    userLongitude = position.coords.longitude;
-                    document.getElementById('game-status').textContent = "Schatz wurde versteckt!";
-                    
-                    // Generiere einen Schatz innerhalb eines 5 km Radius
-                    const treasureLocation = generateRandomLocation(userLatitude, userLongitude, 5);
-                    treasureLatitude = treasureLocation.latitude;
-                    treasureLongitude = treasureLocation.longitude;
+// Funktion, um das Spiel zu starten
+function startGame() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                userLatitude = position.coords.latitude;
+                userLongitude = position.coords.longitude;
+                document.getElementById('game-status').textContent = "Schatz wurde versteckt!";
+                
+                // Generiere einen Schatz innerhalb eines 5 km Radius
+                const treasureLocation = generateRandomLocation(userLatitude, userLongitude, 5);
+                treasureLatitude = treasureLocation.latitude;
+                treasureLongitude = treasureLocation.longitude;
 
-                    gameStarted = true;
-                    giveHint();
-                }, () => {
-                    document.getElementById('game-status').textContent = "Standort konnte nicht ermittelt werden.";
-                });
-            } else {
-                document.getElementById('game-status').textContent = "Geolocation wird von diesem Browser nicht unterstützt.";
+                gameStarted = true;
+                giveHint();
+            },
+            (error) => {
+                // Fehlerbehandlung bei Standortermittlung
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        document.getElementById('game-status').textContent = "Nutzer hat die Standortabfrage abgelehnt.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        document.getElementById('game-status').textContent = "Standortinformationen sind nicht verfügbar.";
+                        break;
+                    case error.TIMEOUT:
+                        document.getElementById('game-status').textContent = "Die Anfrage zur Standortermittlung ist abgelaufen.";
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        document.getElementById('game-status').textContent = "Ein unbekannter Fehler ist aufgetreten.";
+                        break;
+                }
             }
-        }
-
-        // Aktualisiere den Standort des Spielers
-        function updatePlayerLocation() {
-            if (gameStarted) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    userLatitude = position.coords.latitude;
-                    userLongitude = position.coords.longitude;
-                    giveHint();
-                });
-            }
-        }
+        );
+    } else {
+        document.getElementById('game-status').textContent = "Geolocation wird von diesem Browser nicht unterstützt.";
+    }
+}
 
         // Starte das Spiel, wenn der Button geklickt wird
         document.getElementById('start-game').addEventListener('click', startGame);
