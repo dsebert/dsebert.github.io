@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wortspiel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 50px;
+        }
+        #word {
+            font-size: 2em;
+            letter-spacing: 0.2em;
+            margin: 20px 0;
+        }
+        input {
+            font-size: 1.5em;
+            padding: 10px;
+            width: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        #message {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wortspiel</h1>
+    <div id="word"></div>
+    <input type="text" id="guess" maxlength="1">
+    <button onclick="checkGuess()">Raten</button>
+    <div id="message"></div>
+
+    <script>
+        const words = ["haus", "baum", "computer", "elefant", "programmieren"];
+        let selectedWord = words[Math.floor(Math.random() * words.length)];
+        let guessedLetters = [];
+        let displayWord = "_".repeat(selectedWord.length);
+
+        function updateDisplay() {
+            document.getElementById("word").innerText = displayWord.split("").join(" ");
+        }
+
+        function checkGuess() {
+            const guess = document.getElementById("guess").value.toLowerCase();
+            document.getElementById("guess").value = "";
+
+            if (guessedLetters.includes(guess) || guess.length !== 1) {
+                document.getElementById("message").innerText = "Ungültiger Versuch!";
+                return;
+            }
+
+            guessedLetters.push(guess);
+            if (selectedWord.includes(guess)) {
+                displayWord = displayWord.split("").map((char, index) => {
+                    return selectedWord[index] === guess ? guess: char;
+                }).join("");
+                document.getElementById("message").innerText = "Gut gemacht!";
+            } else {
+                document.getElementById("message").innerText = "Versuch es nochmal!";
+            }
+
+            updateDisplay();
+
+            if (!displayWord.includes("_")) {
+                document.getElementById("message").innerText = "Herzlichen Glückwunsch! Du hast das Wort erraten: " + selectedWord;
+            }
+        }
+
+        updateDisplay();
+    </script>
+</body>
+</html>
