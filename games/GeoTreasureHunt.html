@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoTreasure Hunt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #game-status {
+            margin-bottom: 20px;
+        }
+        #hint {
+            font-size: 1.2em;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>GeoTreasure Hunt</h1>
+    <p>Finde den Schatz in deiner Nähe!</p>
+    <div id="game-status">Standort wird abgerufen...</div>
+    <div id="hint"></div>
+    <button id="start-game">Spiel starten</button>
+
+    <script>
+        let userLatitude, userLongitude, treasureLatitude, treasureLongitude;
+        let gameStarted = false;
+
+        // Funktion, um zufällige Koordinaten für den Schatz zu generieren
+        function generateRandomLocation(lat, lon, radius) {
+            const earthRadius = 6371; // Radius der Erde in Kilometern
+            const randomAngle = Math.random() * 2 * Math.PI;
+            const randomDistance = Math.random() * radius;
+
+            const deltaLat = randomDistance / earthRadius;
+            const deltaLon = randomDistance / (earthRadius * Math.cos((Math.PI * lat) / 180));
+
+            const newLat = lat + (deltaLat * (180 / Math.PI));
+            const newLon = lon + (deltaLon * (180 / Math.PI));
+
+            return { latitude: newLat, longitude: newLon };
+        }
+
+        // Funktion, um die Entfernung zwischen zwei Punkten zu berechnen
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371; // Erdradius in km
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = 
+                0.5 - Math.cos(dLat) / 2 + 
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+                (1 - Math.cos(dLon)) / 2;
+            return R * 2 * Math.asin(Math.sqrt(a));
+        }
+
+        // Funktion, um Hinweise zu geben
+        function giveHint() {
+            const distance = calculateDistance(userLatitude, userLongitude, treasureLatitude, treasureLongitude);
+            const hint = document.getElementById('hint');
+            if (distance < 0.1) {
+                hint.textContent = "Du bist sehr nah am Schatz!";
+            } else if (distance < 1) {
+                hint.textContent = "Du kommst näher, der Schatz ist weniger als 1 km entfernt!";
+            } else {
+                hint.textContent = `Der Schatz ist etwa ${Math.round(distance)} km entfernt.`;
+            }
+        }
+
+        // Funktion, um das Spiel zu starten
+        function startGame() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    userLatitude = position.coords.latitude;
+                    userLongitude = position.coords.longitude;
+                    document.getElementById('game-status').textContent = "Schatz wurde versteckt!";
+                    
+                    // Generiere einen Schatz innerhalb eines 5 km Radius
+                    const treasureLocation = generateRandomLocation(userLatitude, userLongitude, 5);
+                    treasureLatitude = treasureLocation.latitude;
+                    treasureLongitude = treasureLocation.longitude;
+
+                    gameStarted = true;
+                    giveHint();
+                }, () => {
+                    document.getElementById('game-status').textContent = "Standort konnte nicht ermittelt werden.";
+                });
+            } else {
+                document.getElementById('game-status').textContent = "Geolocation wird von diesem Browser nicht unterstützt.";
+            }
+        }
+
+        // Aktualisiere den Standort des Spielers
+        function updatePlayerLocation() {
+            if (gameStarted) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    userLatitude = position.coords.latitude;
+                    userLongitude = position.coords.longitude;
+                    giveHint();
+                });
+            }
+        }
+
+        // Starte das Spiel, wenn der Button geklickt wird
+        document.getElementById('start-game').addEventListener('click', startGame);
+
+        // Aktualisiere die Position des Spielers alle 10 Sekunden
+        setInterval(updatePlayerLocation, 10000);
+    </script>
+</body>
+</html>
