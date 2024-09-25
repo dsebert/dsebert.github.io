@@ -40,7 +40,7 @@ header nav a {
     margin: 20px 0;
 }
 p, a, h1, h2, h3, h4, h5, h6 {
-    margin-left: 0px;
+    margin-left: 10px;
 }
 footer {
     width: 100%;
