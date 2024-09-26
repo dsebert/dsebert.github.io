@@ -55,7 +55,9 @@
 <body>
     <div id="game-container">
         <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div id="score">Punktestand: 0</div>
+        <div id="score">
+            Punktestand: 0
+        </div>
         <div id="joystick">
             <div id="stick"></div>
         </div>
@@ -154,7 +156,9 @@
 
         function createEnemy() {
             const enemyX = Math.random() * (canvas.width - 50);
-            enemies.push({ x: enemyX, y: 0 });
+            enemies.push({
+                x: enemyX, y: 0
+            });
         }
 
         function drawPlayer() {
