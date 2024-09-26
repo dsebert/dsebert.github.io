@@ -26,8 +26,10 @@
             color: white;
             width: 20%;
             padding: 20px;
-            overflow-y: auto; /* Enable vertical scrolling */
-            height: 100vh; /* Full height of the viewport */
+            overflow-y: auto;
+            /* Enable vertical scrolling */
+            height: 100vh;
+            /* Full height of the viewport */
         }
 
         #sidebar h2 {
@@ -71,12 +73,22 @@
             border: 2px solid yellow;
         }
 
-        @keyframes shake {
-            0% { transform: translate(0px, 0px); }
-            25% { transform: translate(5px, 0px); }
-            50% { transform: translate(0px, 5px); }
-            75% { transform: translate(-5px, 0px); }
-            100% { transform: translate(0px, 0px); }
+@keyframes shake {
+            0% {
+                transform: translate(0px, 0px);
+            }
+            25% {
+                transform: translate(5px, 0px);
+            }
+            50% {
+                transform: translate(0px, 5px);
+            }
+            75% {
+                transform: translate(-5px, 0px);
+            }
+            100% {
+                transform: translate(0px, 0px);
+            }
         }
 
         .shake {
@@ -87,9 +99,13 @@
             animation: rotate 1s linear;
         }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+@keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         #color-picker {
@@ -137,10 +153,12 @@
             </div>
             <button id="reset-button">Reset Game</button>
         </div>
-        
+
         <div id="main-content">
             <h1>Welcome to the Magical World of Web Wizard</h1>
-            <p>Start learning HTML, CSS, and JavaScript by creating, styling, and animating your web page.</p>
+            <p>
+                Start learning HTML, CSS, and JavaScript by creating, styling, and animating your web page.
+            </p>
             <div id="game-area">
                 <!-- This is where the player will see their progress -->
             </div>
@@ -152,9 +170,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const htmlSpells = document.querySelectorAll('#sidebar ul:nth-of-type(1) li');  // HTML spells
-            const cssSpells = document.querySelectorAll('#sidebar ul:nth-of-type(2) li');   // CSS spells
-            const jsSpells = document.querySelectorAll('#sidebar ul:nth-of-type(3) li');    // JavaScript spells
+            const htmlSpells = document.querySelectorAll('#sidebar ul:nth-of-type(1) li'); // HTML spells
+            const cssSpells = document.querySelectorAll('#sidebar ul:nth-of-type(2) li'); // CSS spells
+            const jsSpells = document.querySelectorAll('#sidebar ul:nth-of-type(3) li'); // JavaScript spells
             const gameArea = document.getElementById('game-area');
             const codeOutput = document.getElementById('code-output');
             const colorPicker = document.getElementById('color');
@@ -186,9 +204,10 @@
                 }
             });
 
-            resetButton.addEventListener('click', function () {
-                resetGame();
-            });
+            resetButton.addEventListener('click',
+                function () {
+                    resetGame();
+                });
 
             function castHTMLSpell(spell) {
                 let element;
@@ -234,31 +253,32 @@
                         element = document.createElement('p');
                         element.textContent = 'Unknown spell...';
                         htmlCode = `<p>Unknown spell...</p>`;
+                    }
+
+                    // Append the new element to the game area and make it selectable
+                    gameArea.appendChild(element);
+                    element.addEventListener('click',
+                        function () {
+                            selectElement(element);
+                        });
+
+                    // Add the generated code to the output
+                    generatedCode += htmlCode + '\n';
+                    codeOutput.textContent = generatedCode;
+
+                    // Show the game area and code output when content is added
+                    if (gameArea.children.length > 0) {
+                        gameArea.style.display = 'block';
+                        codeOutput.style.display = 'block';
+                    }
                 }
 
-                // Append the new element to the game area and make it selectable
-                gameArea.appendChild(element);
-                element.addEventListener('click', function () {
-                    selectElement(element);
-                });
-
-                // Add the generated code to the output
-                generatedCode += htmlCode + '\n';
-                codeOutput.textContent = generatedCode;
-
-                // Show the game area and code output when content is added
-                if (gameArea.children.length > 0) {
-                    gameArea.style.display = 'block';
-                    codeOutput.style.display = 'block';
-                }
-            }
-
-            function castCSSSpell(spell) {
-                if (!selectedElement) {
-                    alert('Select an element to apply styles.');
-                    return;
-                }
-                switch (spell) {
+                function castCSSSpell(spell) {
+                    if (!selectedElement) {
+                        alert('Select an element to apply styles.');
+                        return;
+                    }
+                    switch (spell) {
                     case 'Make Background Red':
                         selectedElement.style.backgroundColor = 'red';
                         break;
@@ -271,17 +291,17 @@
                     case 'Change Background Color':
                         selectedElement.style.backgroundColor = colorPicker.value;
                         break;
+                    }
+
+                    updateGeneratedCode();
                 }
 
-                updateGeneratedCode();
-            }
-
-            function castJavaScriptSpell(spell) {
-                if (!selectedElement) {
-                    alert('Select an element to apply JavaScript.');
-                    return;
-                }
-                switch (spell) {
+                function castJavaScriptSpell(spell) {
+                    if (!selectedElement) {
+                        alert('Select an element to apply JavaScript.');
+                        return;
+                    }
+                    switch (spell) {
                     case 'Shake on Click':
                         selectedElement.addEventListener('click', function () {
                             selectedElement.classList.add('shake');
@@ -301,40 +321,40 @@
                             selectedElement.style.backgroundColor = '';
                         });
                         break;
-                }
-
-                updateGeneratedCode();
-            }
-
-            function selectElement(element) {
-                if (selectedElement) {
-                    selectedElement.classList.remove('selected');
-                }
-                selectedElement = element;
-                selectedElement.classList.add('selected');
-            }
-
-            function resetGame() {
-                gameArea.innerHTML = '';
-                codeOutput.textContent = '';
-                generatedCode = '';
-                selectedElement = null;
-                gameArea.style.display = 'none';
-                codeOutput.style.display = 'none';
-            }
-
-            function updateGeneratedCode() {
-                let newCode = '';
-                gameArea.childNodes.forEach(node => {
-                    // Only consider element nodes (ignore text or comment nodes)
-                    if (node.nodeType === 1) { 
-                        newCode += node.outerHTML + '\n';
                     }
-                });
-                generatedCode = newCode;
-                codeOutput.textContent = generatedCode;
-            }
-        });
-    </script>
-</body>
+
+                    updateGeneratedCode();
+                }
+
+                function selectElement(element) {
+                    if (selectedElement) {
+                        selectedElement.classList.remove('selected');
+                    }
+                    selectedElement = element;
+                    selectedElement.classList.add('selected');
+                }
+
+                function resetGame() {
+                    gameArea.innerHTML = '';
+                    codeOutput.textContent = '';
+                    generatedCode = '';
+                    selectedElement = null;
+                    gameArea.style.display = 'none';
+                    codeOutput.style.display = 'none';
+                }
+
+                function updateGeneratedCode() {
+                    let newCode = '';
+                    gameArea.childNodes.forEach(node => {
+                        // Only consider element nodes (ignore text or comment nodes)
+                        if (node.nodeType === 1) {
+                            newCode += node.outerHTML + '\n';
+                        }
+                    });
+                    generatedCode = newCode;
+                    codeOutput.textContent = generatedCode;
+                }
+            });
+        </script>
+    </body>
 </html>
