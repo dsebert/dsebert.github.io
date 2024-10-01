@@ -46,12 +46,14 @@
             margin: 5px;
             cursor: pointer;
         }
-@media (min-width: 705px) {
+    </style>
+    <script>
+    const isMobile = /iPhone|iPad|iPod|Android|BlackBerry|Opera Mini|IEMobile|Windows Phone/i.test(navigator.userAgent);
+        if (isMobile) {
             .controls {
                 display: none;
             }
-        }
-    </style>
+        }</script>
 </head>
 <body>
     <header>
