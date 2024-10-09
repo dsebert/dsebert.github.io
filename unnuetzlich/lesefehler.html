@@ -16,6 +16,7 @@
 
         .word-container {
             display: flex;
+            flex-direction: column; /* Änderung hier */
             align-items: center;
             justify-content: center;
             margin: 10px 0;
@@ -25,8 +26,7 @@
         .word {
             font-size: 24px;
             font-weight: bold;
-            margin-right: 20px;
-            /* Abstand zwischen Wort und Box */
+            margin-bottom: 10px; /* Abstand zwischen Wort und Box */
         }
 
         .flip-box {
@@ -34,8 +34,6 @@
             width: 150px;
             height: 100px;
             perspective: 1000px;
-            margin-left: 20px;
-            /* Abstand zwischen Box und Wort */
         }
 
         .flip-box-inner {
@@ -84,142 +82,140 @@
             mistaken: 'Zwergel Stern',
             correct: 'Zwerg-Elstern'
         },
-            {
-                mistaken: 'Kreisch Ohr Verband',
-                correct: 'Kreis-Chor-Verband'
-            },
-            {
-                mistaken: 'Minister Eo Anlage',
-                correct: 'Mini-Stereoanlage'
-            },
-            {
-                mistaken: 'Baumen Taster',
-                correct: 'Baum Entaster'
-            },
-            {
-                mistaken: 'Urin Sekten',
-                correct: 'Ur-Insekten'
-            },
-            {
-                mistaken: 'Ei Stempel',
-                correct: 'Eis-Tempel'
-            },
-            {
-                mistaken: 'Wach Stube',
-                correct: 'Wachs-Tube'
-            },
-            {
-                mistaken: 'Gründung',
-                correct: 'Grün-Dung'
-            },
-            {
-                mistaken: 'Staub Ecken',
-                correct: 'Stau-Becken'
-            },
-            {
-                mistaken: 'Musik erleben',
-                correct: 'Musiker-Leben'
-            },
-            {
-                mistaken: 'Torf Laute',
-                correct: 'Tor-Flaute'
-            },
-            {
-                mistaken: 'Blumento Pferde',
-                correct: 'Blumentopf-Erde'
-            },
-            {
-                mistaken: 'Kir Schwein',
-                correct: 'Kirsch-Wein'
-            },
-            {
-                mistaken: 'Bar Kasse',
-                correct: 'Barkasse'
-            },
-            {
-                mistaken: 'Kau Fladen',
-                correct: 'Kauf-Laden'
-            },
-            {
-                mistaken: 'Anal Phabet',
-                correct: 'An-Alphabet'
-            },
-            {
-                mistaken: 'Alter Steilzeit',
-                correct: 'Alters-Teilzeit'
-            },
-            {
-                mistaken: 'Gas Traum',
-                correct: 'Gast-Raum'
-            },
-            {
-                mistaken: 'Tang-Ente',
-                correct: 'Tangente'
-            },
-            {
-                mistaken: 'Gel Brand',
-                correct: 'Gelb-Rand'
-            },
-            {
-                mistaken: 'Altbauch Arme',
-                correct: 'Altbau-Charme'
-            },
-            {
-                mistaken: 'Rotz Eder',
-                correct: 'Rot-Zeder'
-            },
-            {
-                mistaken: 'Hoffens Terchen',
-                correct: 'Hof-Fensterchen'
-            },
-            {
-                mistaken: 'Nach Truhe',
-                correct: 'Nacht-Ruhe'
-            },
-            {
-                mistaken: 'Fank Reise',
-                correct: 'Fan-Kreise'
-            },
-            {
-                mistaken: 'Fest zur Rösen',
-                correct: 'Festzurr-Ösen'
-            },
-            {
-                mistaken: 'Alpeno Strand',
-                correct: 'Alpen-Ost-Rand'
-            },
-            {
-                mistaken: 'Rind Erdung',
-                correct: 'Rinder Dung'
-            },
-            {
-                mistaken: 'Glieder Satz',
-                correct: 'Glied-Ersatz'
-            },
-            {
-                mistaken: 'Enter bender',
-                correct: 'Ent-Erbender'
-            },
-            {
-                mistaken: 'Talg Rund',
-                correct: 'Tal Grund'
-            },
-            {
-                mistaken: 'Stiefen Kelchen',
-                correct: 'Stief-Enkelchen'
-            },
-            {
-                mistaken: 'Nachteil Zug',
-                correct: 'Nacht-Eil-Zug'
-            }];
+        {
+            mistaken: 'Kreisch Ohr Verband',
+            correct: 'Kreis-Chor-Verband'
+        },
+        {
+            mistaken: 'Minister Eo Anlage',
+            correct: 'Mini-Stereoanlage'
+        },
+        {
+            mistaken: 'Baumen Taster',
+            correct: 'Baum Entaster'
+        },
+        {
+            mistaken: 'Urin Sekten',
+            correct: 'Ur-Insekten'
+        },
+        {
+            mistaken: 'Ei Stempel',
+            correct: 'Eis-Tempel'
+        },
+        {
+            mistaken: 'Wach Stube',
+            correct: 'Wachs-Tube'
+        },
+        {
+            mistaken: 'Gründung',
+            correct: 'Grün-Dung'
+        },
+        {
+            mistaken: 'Staub Ecken',
+            correct: 'Stau-Becken'
+        },
+        {
+            mistaken: 'Musik erleben',
+            correct: 'Musiker-Leben'
+        },
+        {
+            mistaken: 'Torf Laute',
+            correct: 'Tor-Flaute'
+        },
+        {
+            mistaken: 'Blumento Pferde',
+            correct: 'Blumentopf-Erde'
+        },
+        {
+            mistaken: 'Kir Schwein',
+            correct: 'Kirsch-Wein'
+        },
+        {
+            mistaken: 'Bar Kasse',
+            correct: 'Barkasse'
+        },
+        {
+            mistaken: 'Kau Fladen',
+            correct: 'Kauf-Laden'
+        },
+        {
+            mistaken: 'Anal Phabet',
+            correct: 'An-Alphabet'
+        },
+        {
+            mistaken: 'Alter Steilzeit',
+            correct: 'Alters-Teilzeit'
+        },
+        {
+            mistaken: 'Gas Traum',
+            correct: 'Gast-Raum'
+        },
+        {
+            mistaken: 'Tang-Ente',
+            correct: 'Tangente'
+        },
+        {
+            mistaken: 'Gel Brand',
+            correct: 'Gelb-Rand'
+        },
+        {
+            mistaken: 'Altbauch Arme',
+            correct: 'Altbau-Charme'
+        },
+        {
+            mistaken: 'Rotz Eder',
+            correct: 'Rot-Zeder'
+        },
+        {
+            mistaken: 'Hoffens Terchen',
+            correct: 'Hof-Fensterchen'
+        },
+        {
+            mistaken: 'Nach Truhe',
+            correct: 'Nacht-Ruhe'
+        },
+        {
+            mistaken: 'Fank Reise',
+            correct: 'Fan-Kreise'
+        },
+        {
+            mistaken: 'Fest zur Rösen',
+            correct: 'Festzurr-Ösen'
+        },
+        {
+            mistaken: 'Alpeno Strand',
+            correct: 'Alpen-Ost-Rand'
+        },
+        {
+            mistaken: 'Rind Erdung',
+            correct: 'Rinder Dung'
+        },
+        {
+            mistaken: 'Glieder Satz',
+            correct: 'Glied-Ersatz'
+        },
+        {
+            mistaken: 'Enter bender',
+            correct: 'Ent-Erbender'
+        },
+        {
+            mistaken: 'Talg Rund',
+            correct: 'Tal Grund'
+        },
+        {
+            mistaken: 'Stiefen Kelchen',
+            correct: 'Stief-Enkelchen'
+        },
+        {
+            mistaken: 'Nachteil Zug',
+            correct: 'Nacht-Eil-Zug'
+        }];
 
         // Funktion zum Mischen des Arrays
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i],
-                    array[j]] = [array[j],
-                    array[i]]; // Elemente tauschen
+                [array[i], array[j]] = [array[j], array[i]]; // Elemente tauschen
             }
         }
 
@@ -228,9 +224,7 @@
 
         const wordListContainer = document.getElementById('wordList');
 
-        words.forEach(({
-            mistaken, correct
-        }) => {
+        words.forEach(({ mistaken, correct }) => {
             const wordContainer = document.createElement('div');
             wordContainer.className = 'word-container';
 
