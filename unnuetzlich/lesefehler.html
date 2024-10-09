@@ -74,52 +74,167 @@
 </head>
 <body>
 
+    <header>
+        <nav>
+            <a href="../index.html">Home</a>
+            <a href="../nuetzlich/nuetzlich.html">Nützliche Dinge</a>
+            <a href="../unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
+            <a href="../games/games.html">Games</a>
+            <a href="../impressum.html">Kontakt</a>
+        </nav>
+    </header>
+    <div class="hero2">
+        <h1>Unnützliche Dinge</h1>
+        <p>
+            Entdecke unnützliche Dinge.
+        </p>
+    </div>
+
     <div class="container">
         <table id="wordTable"></table>
     </div>
 
     <script>
-        const words = [
-            { mistaken: 'Zwergel Stern', correct: 'Zwerg-Elstern' },
-            { mistaken: 'Kreisch Ohr Verband', correct: 'Kreis-Chor-Verband' },
-            { mistaken: 'Minister Eo Anlage', correct: 'Mini-Stereoanlage' },
-            { mistaken: 'Baumen Taster', correct: 'Baum Entaster' },
-            { mistaken: 'Urin Sekten', correct: 'Ur-Insekten' },
-            { mistaken: 'Ei Stempel', correct: 'Eis-Tempel' },
-            { mistaken: 'Wach Stube', correct: 'Wachs-Tube' },
-            { mistaken: 'Gründung', correct: 'Grün-Dung' },
-            { mistaken: 'Staub Ecken', correct: 'Stau-Becken' },
-            { mistaken: 'Musik erleben', correct: 'Musiker-Leben' },
-            { mistaken: 'Torf Laute', correct: 'Tor-Flaute' },
-            { mistaken: 'Blumento Pferde', correct: 'Blumentopf-Erde' },
-            { mistaken: 'Kir Schwein', correct: 'Kirsch-Wein' },
-            { mistaken: 'Bar Kasse', correct: 'Barkasse' },
-            { mistaken: 'Kau Fladen', correct: 'Kauf-Laden' },
-            { mistaken: 'Anal Phabet', correct: 'An-Alphabet' },
-            { mistaken: 'Alter Steilzeit', correct: 'Alters-Teilzeit' },
-            { mistaken: 'Gas Traum', correct: 'Gast-Raum' },
-            { mistaken: 'Tang-Ente', correct: 'Tangente' },
-            { mistaken: 'Gel Brand', correct: 'Gelb-Rand' },
-            { mistaken: 'Altbauch Arme', correct: 'Altbau-Charme' },
-            { mistaken: 'Rotz Eder', correct: 'Rot-Zeder' },
-            { mistaken: 'Hoffens Terchen', correct: 'Hof-Fensterchen' },
-            { mistaken: 'Nach Truhe', correct: 'Nacht-Ruhe' },
-            { mistaken: 'Fank Reise', correct: 'Fan-Kreise' },
-            { mistaken: 'Fest zur Rösen', correct: 'Festzurr-Ösen' },
-            { mistaken: 'Alpeno Strand', correct: 'Alpen-Ost-Rand' },
-            { mistaken: 'Rind Erdung', correct: 'Rinder Dung' },
-            { mistaken: 'Glieder Satz', correct: 'Glied-Ersatz' },
-            { mistaken: 'Enter bender', correct: 'Ent-Erbender' },
-            { mistaken: 'Talg Rund', correct: 'Tal Grund' },
-            { mistaken: 'Stiefen Kelchen', correct: 'Stief-Enkelchen' },
-            { mistaken: 'Nachteil Zug', correct: 'Nacht-Eil-Zug' }
-        ];
+        const words = [{
+            mistaken: 'Zwergel Stern',
+            correct: 'Zwerg-Elstern'
+        },
+            {
+                mistaken: 'Kreisch Ohr Verband',
+                correct: 'Kreis-Chor-Verband'
+            },
+            {
+                mistaken: 'Minister Eo Anlage',
+                correct: 'Mini-Stereoanlage'
+            },
+            {
+                mistaken: 'Baumen Taster',
+                correct: 'Baum Entaster'
+            },
+            {
+                mistaken: 'Urin Sekten',
+                correct: 'Ur-Insekten'
+            },
+            {
+                mistaken: 'Ei Stempel',
+                correct: 'Eis-Tempel'
+            },
+            {
+                mistaken: 'Wach Stube',
+                correct: 'Wachs-Tube'
+            },
+            {
+                mistaken: 'Gründung',
+                correct: 'Grün-Dung'
+            },
+            {
+                mistaken: 'Staub Ecken',
+                correct: 'Stau-Becken'
+            },
+            {
+                mistaken: 'Musik erleben',
+                correct: 'Musiker-Leben'
+            },
+            {
+                mistaken: 'Torf Laute',
+                correct: 'Tor-Flaute'
+            },
+            {
+                mistaken: 'Blumento Pferde',
+                correct: 'Blumentopf-Erde'
+            },
+            {
+                mistaken: 'Kir Schwein',
+                correct: 'Kirsch-Wein'
+            },
+            {
+                mistaken: 'Bar Kasse',
+                correct: 'Barkasse'
+            },
+            {
+                mistaken: 'Kau Fladen',
+                correct: 'Kauf-Laden'
+            },
+            {
+                mistaken: 'Anal Phabet',
+                correct: 'An-Alphabet'
+            },
+            {
+                mistaken: 'Alter Steilzeit',
+                correct: 'Alters-Teilzeit'
+            },
+            {
+                mistaken: 'Gas Traum',
+                correct: 'Gast-Raum'
+            },
+            {
+                mistaken: 'Tang-Ente',
+                correct: 'Tangente'
+            },
+            {
+                mistaken: 'Gel Brand',
+                correct: 'Gelb-Rand'
+            },
+            {
+                mistaken: 'Altbauch Arme',
+                correct: 'Altbau-Charme'
+            },
+            {
+                mistaken: 'Rotz Eder',
+                correct: 'Rot-Zeder'
+            },
+            {
+                mistaken: 'Hoffens Terchen',
+                correct: 'Hof-Fensterchen'
+            },
+            {
+                mistaken: 'Nach Truhe',
+                correct: 'Nacht-Ruhe'
+            },
+            {
+                mistaken: 'Fank Reise',
+                correct: 'Fan-Kreise'
+            },
+            {
+                mistaken: 'Fest zur Rösen',
+                correct: 'Festzurr-Ösen'
+            },
+            {
+                mistaken: 'Alpeno Strand',
+                correct: 'Alpen-Ost-Rand'
+            },
+            {
+                mistaken: 'Rind Erdung',
+                correct: 'Rinder Dung'
+            },
+            {
+                mistaken: 'Glieder Satz',
+                correct: 'Glied-Ersatz'
+            },
+            {
+                mistaken: 'Enter bender',
+                correct: 'Ent-Erbender'
+            },
+            {
+                mistaken: 'Talg Rund',
+                correct: 'Tal Grund'
+            },
+            {
+                mistaken: 'Stiefen Kelchen',
+                correct: 'Stief-Enkelchen'
+            },
+            {
+                mistaken: 'Nachteil Zug',
+                correct: 'Nacht-Eil-Zug'
+            }];
 
         // Funktion zum Mischen des Arrays
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]]; // Elemente tauschen
+                [array[i],
+                    array[j]] = [array[j],
+                    array[i]]; // Elemente tauschen
             }
         }
 
@@ -128,7 +243,9 @@
 
         const wordTable = document.getElementById('wordTable');
 
-        words.forEach(({ mistaken, correct }) => {
+        words.forEach(({
+            mistaken, correct
+        }) => {
             const row = document.createElement('tr');
 
             const wordCell = document.createElement('td');
