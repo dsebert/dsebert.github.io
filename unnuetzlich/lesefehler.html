@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verleser-Wörter</title>
-    <style>
+<style>
         .container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-around;
+            justify-content: center;
             width: 100%;
             margin-top: 50px;
+        }
+
+        .word-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            width: 100%;
         }
 
         .word {
             font-size: 24px;
             font-weight: bold;
+            margin-right: 20px; /* Abstand zwischen Wort und Box */
         }
 
         .flip-box {
@@ -23,6 +33,7 @@
             width: 150px;
             height: 100px;
             perspective: 1000px;
+            margin-left: 20px; /* Abstand zwischen Box und Wort */
         }
 
         .flip-box-inner {
@@ -39,7 +50,6 @@
             position: absolute;
             width: 100%;
             height: 100%;
-            -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             display: flex;
             align-items: center;
