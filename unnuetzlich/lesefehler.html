@@ -65,19 +65,48 @@
 </head>
 <body>
 
-<div class="container">
-    <div class="word">Baumen-Taster</div>
-    <div class="flip-box" onclick="this.classList.toggle('flip')">
-        <div class="flip-box-inner">
-            <div class="flip-box-front">
-                Klick mich
-            </div>
-            <div class="flip-box-back">
-                Baum-Entsafter
-            </div>
-        </div>
-    </div>
-</div>
+<div class="container" id="wordList"></div>
+
+<script>
+    const words = [
+        { mistaken: 'Baumen-Taster', correct: 'Baum-Entsafter' },
+        { mistaken: 'Bier-Schwamm', correct: 'Bierschwam' },
+        { mistaken: 'Auto-Schnauze', correct: 'Autoschnautze' }
+    ];
+
+    const wordListContainer = document.getElementById('wordList');
+
+    words.forEach(({ mistaken, correct }) => {
+        const wordContainer = document.createElement('div');
+        wordContainer.className = 'word-container';
+
+        const wordDiv = document.createElement('div');
+        wordDiv.className = 'word';
+        wordDiv.textContent = mistaken;
+
+        const flipBox = document.createElement('div');
+        flipBox.className = 'flip-box';
+        flipBox.onclick = () => flipBox.classList.toggle('flip');
+
+        const flipBoxInner = document.createElement('div');
+        flipBoxInner.className = 'flip-box-inner';
+
+        const front = document.createElement('div');
+        front.className = 'flip-box-front';
+        front.textContent = 'Klick mich';
+
+        const back = document.createElement('div');
+        back.className = 'flip-box-back';
+        back.textContent = correct;
+
+        flipBoxInner.appendChild(front);
+        flipBoxInner.appendChild(back);
+        flipBox.appendChild(flipBoxInner);
+        wordContainer.appendChild(wordDiv);
+        wordContainer.appendChild(flipBox);
+        wordListContainer.appendChild(wordContainer);
+    });
+</script>
 
 </body>
 </html>
