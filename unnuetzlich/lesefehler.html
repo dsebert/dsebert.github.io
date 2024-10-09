@@ -75,7 +75,6 @@
     </style>
 </head>
 <body>
-
     <header>
         <nav>
             <a href="../index.html">Home</a>
@@ -91,193 +90,194 @@
             Diese Wörter sind so geteilt, dass sie etwas anderes oder sinnloses bedeuten. Versuche erst die Wörter <b>richtig</b> zu lesen und schaue dann erst in der Lösung nach.
         </p>
     </div>
+    <div>
+        <div class="container">
+            <table id="wordTable"></table>
+        </div>
 
-    <div class="container">
-        <table id="wordTable"></table>
-    </div>
+        <script>
+            const words = [{
+                mistaken: 'Zwergel Stern',
+                correct: 'Zwerg-Elstern'
+            },
+                {
+                    mistaken: 'Kreisch Ohr Verband',
+                    correct: 'Kreis-Chor-Verband'
+                },
+                {
+                    mistaken: 'Minister Eo Anlage',
+                    correct: 'Mini-Stereoanlage'
+                },
+                {
+                    mistaken: 'Baumen Taster',
+                    correct: 'Baum Entaster'
+                },
+                {
+                    mistaken: 'Urin Sekten',
+                    correct: 'Ur-Insekten'
+                },
+                {
+                    mistaken: 'Ei Stempel',
+                    correct: 'Eis-Tempel'
+                },
+                {
+                    mistaken: 'Wach Stube',
+                    correct: 'Wachs-Tube'
+                },
+                {
+                    mistaken: 'Gründung',
+                    correct: 'Grün-Dung'
+                },
+                {
+                    mistaken: 'Staub Ecken',
+                    correct: 'Stau-Becken'
+                },
+                {
+                    mistaken: 'Musik erleben',
+                    correct: 'Musiker-Leben'
+                },
+                {
+                    mistaken: 'Torf Laute',
+                    correct: 'Tor-Flaute'
+                },
+                {
+                    mistaken: 'Blumento Pferde',
+                    correct: 'Blumentopf-Erde'
+                },
+                {
+                    mistaken: 'Kir Schwein',
+                    correct: 'Kirsch-Wein'
+                },
+                {
+                    mistaken: 'Bar Kasse',
+                    correct: 'Barkasse'
+                },
+                {
+                    mistaken: 'Kau Fladen',
+                    correct: 'Kauf-Laden'
+                },
+                {
+                    mistaken: 'Anal Phabet',
+                    correct: 'An-Alphabet'
+                },
+                {
+                    mistaken: 'Alter Steilzeit',
+                    correct: 'Alters-Teilzeit'
+                },
+                {
+                    mistaken: 'Gas Traum',
+                    correct: 'Gast-Raum'
+                },
+                {
+                    mistaken: 'Tang-Ente',
+                    correct: 'Tangente'
+                },
+                {
+                    mistaken: 'Gel Brand',
+                    correct: 'Gelb-Rand'
+                },
+                {
+                    mistaken: 'Altbauch Arme',
+                    correct: 'Altbau-Charme'
+                },
+                {
+                    mistaken: 'Rotz Eder',
+                    correct: 'Rot-Zeder'
+                },
+                {
+                    mistaken: 'Hoffens Terchen',
+                    correct: 'Hof-Fensterchen'
+                },
+                {
+                    mistaken: 'Nach Truhe',
+                    correct: 'Nacht-Ruhe'
+                },
+                {
+                    mistaken: 'Fank Reise',
+                    correct: 'Fan-Kreise'
+                },
+                {
+                    mistaken: 'Fest zur Rösen',
+                    correct: 'Festzurr-Ösen'
+                },
+                {
+                    mistaken: 'Alpeno Strand',
+                    correct: 'Alpen-Ost-Rand'
+                },
+                {
+                    mistaken: 'Rind Erdung',
+                    correct: 'Rinder Dung'
+                },
+                {
+                    mistaken: 'Glieder Satz',
+                    correct: 'Glied-Ersatz'
+                },
+                {
+                    mistaken: 'Enter bender',
+                    correct: 'Ent-Erbender'
+                },
+                {
+                    mistaken: 'Talg Rund',
+                    correct: 'Tal Grund'
+                },
+                {
+                    mistaken: 'Stiefen Kelchen',
+                    correct: 'Stief-Enkelchen'
+                },
+                {
+                    mistaken: 'Nachteil Zug',
+                    correct: 'Nacht-Eil-Zug'
+                }];
 
-    <script>
-        const words = [{
-            mistaken: 'Zwergel Stern',
-            correct: 'Zwerg-Elstern'
-        },
-            {
-                mistaken: 'Kreisch Ohr Verband',
-                correct: 'Kreis-Chor-Verband'
-            },
-            {
-                mistaken: 'Minister Eo Anlage',
-                correct: 'Mini-Stereoanlage'
-            },
-            {
-                mistaken: 'Baumen Taster',
-                correct: 'Baum Entaster'
-            },
-            {
-                mistaken: 'Urin Sekten',
-                correct: 'Ur-Insekten'
-            },
-            {
-                mistaken: 'Ei Stempel',
-                correct: 'Eis-Tempel'
-            },
-            {
-                mistaken: 'Wach Stube',
-                correct: 'Wachs-Tube'
-            },
-            {
-                mistaken: 'Gründung',
-                correct: 'Grün-Dung'
-            },
-            {
-                mistaken: 'Staub Ecken',
-                correct: 'Stau-Becken'
-            },
-            {
-                mistaken: 'Musik erleben',
-                correct: 'Musiker-Leben'
-            },
-            {
-                mistaken: 'Torf Laute',
-                correct: 'Tor-Flaute'
-            },
-            {
-                mistaken: 'Blumento Pferde',
-                correct: 'Blumentopf-Erde'
-            },
-            {
-                mistaken: 'Kir Schwein',
-                correct: 'Kirsch-Wein'
-            },
-            {
-                mistaken: 'Bar Kasse',
-                correct: 'Barkasse'
-            },
-            {
-                mistaken: 'Kau Fladen',
-                correct: 'Kauf-Laden'
-            },
-            {
-                mistaken: 'Anal Phabet',
-                correct: 'An-Alphabet'
-            },
-            {
-                mistaken: 'Alter Steilzeit',
-                correct: 'Alters-Teilzeit'
-            },
-            {
-                mistaken: 'Gas Traum',
-                correct: 'Gast-Raum'
-            },
-            {
-                mistaken: 'Tang-Ente',
-                correct: 'Tangente'
-            },
-            {
-                mistaken: 'Gel Brand',
-                correct: 'Gelb-Rand'
-            },
-            {
-                mistaken: 'Altbauch Arme',
-                correct: 'Altbau-Charme'
-            },
-            {
-                mistaken: 'Rotz Eder',
-                correct: 'Rot-Zeder'
-            },
-            {
-                mistaken: 'Hoffens Terchen',
-                correct: 'Hof-Fensterchen'
-            },
-            {
-                mistaken: 'Nach Truhe',
-                correct: 'Nacht-Ruhe'
-            },
-            {
-                mistaken: 'Fank Reise',
-                correct: 'Fan-Kreise'
-            },
-            {
-                mistaken: 'Fest zur Rösen',
-                correct: 'Festzurr-Ösen'
-            },
-            {
-                mistaken: 'Alpeno Strand',
-                correct: 'Alpen-Ost-Rand'
-            },
-            {
-                mistaken: 'Rind Erdung',
-                correct: 'Rinder Dung'
-            },
-            {
-                mistaken: 'Glieder Satz',
-                correct: 'Glied-Ersatz'
-            },
-            {
-                mistaken: 'Enter bender',
-                correct: 'Ent-Erbender'
-            },
-            {
-                mistaken: 'Talg Rund',
-                correct: 'Tal Grund'
-            },
-            {
-                mistaken: 'Stiefen Kelchen',
-                correct: 'Stief-Enkelchen'
-            },
-            {
-                mistaken: 'Nachteil Zug',
-                correct: 'Nacht-Eil-Zug'
-            }];
-
-        // Funktion zum Mischen des Arrays
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i],
-                    array[j]] = [array[j],
-                    array[i]]; // Elemente tauschen
+            // Funktion zum Mischen des Arrays
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i],
+                        array[j]] = [array[j],
+                        array[i]]; // Elemente tauschen
+                }
             }
-        }
 
-        // Array mischen
-        shuffleArray(words);
+            // Array mischen
+            shuffleArray(words);
 
-        const wordTable = document.getElementById('wordTable');
+            const wordTable = document.getElementById('wordTable');
 
-        words.forEach(({
-            mistaken, correct
-        }) => {
-            const row = document.createElement('tr');
+            words.forEach(({
+                mistaken, correct
+            }) => {
+                const row = document.createElement('tr');
 
-            const wordCell = document.createElement('td');
-            wordCell.className = 'word';
-            wordCell.textContent = mistaken;
+                const wordCell = document.createElement('td');
+                wordCell.className = 'word';
+                wordCell.textContent = mistaken;
 
-            const flipCell = document.createElement('td');
-            const flipBox = document.createElement('div');
-            flipBox.className = 'flip-box';
-            flipBox.onclick = () => flipBox.classList.toggle('flip');
+                const flipCell = document.createElement('td');
+                const flipBox = document.createElement('div');
+                flipBox.className = 'flip-box';
+                flipBox.onclick = () => flipBox.classList.toggle('flip');
 
-            const flipBoxInner = document.createElement('div');
-            flipBoxInner.className = 'flip-box-inner';
+                const flipBoxInner = document.createElement('div');
+                flipBoxInner.className = 'flip-box-inner';
 
-            const front = document.createElement('div');
-            front.className = 'flip-box-front';
-            front.textContent = 'Lösung';
+                const front = document.createElement('div');
+                front.className = 'flip-box-front';
+                front.textContent = 'Lösung';
 
-            const back = document.createElement('div');
-            back.className = 'flip-box-back';
-            back.textContent = correct;
+                const back = document.createElement('div');
+                back.className = 'flip-box-back';
+                back.textContent = correct;
 
-            flipBoxInner.appendChild(front);
-            flipBoxInner.appendChild(back);
-            flipBox.appendChild(flipBoxInner);
-            flipCell.appendChild(flipBox);
-            row.appendChild(wordCell);
-            row.appendChild(flipCell);
-            wordTable.appendChild(row);
-        });
-    </script>
+                flipBoxInner.appendChild(front);
+                flipBoxInner.appendChild(back);
+                flipBox.appendChild(flipBoxInner);
+                flipCell.appendChild(flipBox);
+                row.appendChild(wordCell);
+                row.appendChild(flipCell);
+                wordTable.appendChild(row);
+            });
+        </script>
+    </div>
 </body>
 </html>
