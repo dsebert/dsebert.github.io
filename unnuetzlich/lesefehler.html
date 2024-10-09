@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verleser-Wörter</title>
-<style>
+    <style>
         .container {
             display: flex;
             flex-direction: column;
@@ -25,7 +25,8 @@
         .word {
             font-size: 24px;
             font-weight: bold;
-            margin-right: 20px; /* Abstand zwischen Wort und Box */
+            margin-right: 20px;
+            /* Abstand zwischen Wort und Box */
         }
 
         .flip-box {
@@ -33,7 +34,8 @@
             width: 150px;
             height: 100px;
             perspective: 1000px;
-            margin-left: 20px; /* Abstand zwischen Box und Wort */
+            margin-left: 20px;
+            /* Abstand zwischen Box und Wort */
         }
 
         .flip-box-inner {
@@ -75,48 +77,57 @@
 </head>
 <body>
 
-<div class="container" id="wordList"></div>
+    <div class="container" id="wordList"></div>
 
-<script>
-    const words = [
-        { mistaken: 'Baumen-Taster', correct: 'Baum-Entsafter' },
-        { mistaken: 'Bier-Schwamm', correct: 'Bierschwam' },
-        { mistaken: 'Auto-Schnauze', correct: 'Autoschnautze' }
-    ];
+    <script>
+        const words = [{
+            mistaken: 'Baumen-Taster',
+            correct: 'Baum-Entsafter'
+        },
+            {
+                mistaken: 'Bier-Schwamm',
+                correct: 'Bierschwam'
+            },
+            {
+                mistaken: 'Auto-Schnauze',
+                correct: 'Autoschnautze'
+            }];
 
-    const wordListContainer = document.getElementById('wordList');
+        const wordListContainer = document.getElementById('wordList');
 
-    words.forEach(({ mistaken, correct }) => {
-        const wordContainer = document.createElement('div');
-        wordContainer.className = 'word-container';
+        words.forEach(({
+            mistaken, correct
+        }) => {
+            const wordContainer = document.createElement('div');
+            wordContainer.className = 'word-container';
 
-        const wordDiv = document.createElement('div');
-        wordDiv.className = 'word';
-        wordDiv.textContent = mistaken;
+            const wordDiv = document.createElement('div');
+            wordDiv.className = 'word';
+            wordDiv.textContent = mistaken;
 
-        const flipBox = document.createElement('div');
-        flipBox.className = 'flip-box';
-        flipBox.onclick = () => flipBox.classList.toggle('flip');
+            const flipBox = document.createElement('div');
+            flipBox.className = 'flip-box';
+            flipBox.onclick = () => flipBox.classList.toggle('flip');
 
-        const flipBoxInner = document.createElement('div');
-        flipBoxInner.className = 'flip-box-inner';
+            const flipBoxInner = document.createElement('div');
+            flipBoxInner.className = 'flip-box-inner';
 
-        const front = document.createElement('div');
-        front.className = 'flip-box-front';
-        front.textContent = 'Klick mich';
+            const front = document.createElement('div');
+            front.className = 'flip-box-front';
+            front.textContent = 'Klick mich';
 
-        const back = document.createElement('div');
-        back.className = 'flip-box-back';
-        back.textContent = correct;
+            const back = document.createElement('div');
+            back.className = 'flip-box-back';
+            back.textContent = correct;
 
-        flipBoxInner.appendChild(front);
-        flipBoxInner.appendChild(back);
-        flipBox.appendChild(flipBoxInner);
-        wordContainer.appendChild(wordDiv);
-        wordContainer.appendChild(flipBox);
-        wordListContainer.appendChild(wordContainer);
-    });
-</script>
+            flipBoxInner.appendChild(front);
+            flipBoxInner.appendChild(back);
+            flipBox.appendChild(flipBoxInner);
+            wordContainer.appendChild(wordDiv);
+            wordContainer.appendChild(flipBox);
+            wordListContainer.appendChild(wordContainer);
+        });
+    </script>
 
 </body>
 </html>
