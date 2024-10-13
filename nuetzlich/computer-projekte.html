@@ -65,15 +65,6 @@
     </section>
 </div>
 
-<footer>
-    <p>
-        &copy; 2024 Die nützlichste unnütze Seite im Web. Alle Rechte vorbehalten.
-    </p>
-    <p>
-        <a href="../impressum.html" style="color: #fff;">Impressum</a>
-    </p>
-</footer>
-
 <script>
     const searchInput = document.getElementById('search');
     const sections = document.querySelectorAll('.category');
@@ -91,6 +82,23 @@
             }
         });
     });
+</script>
+<!-- Hier wird der Footer geladen -->
+<div id="footer-placeholder"></div>
+
+<!-- JavaScript zum Laden des Footers -->
+<script>
+    // Funktion zum Laden des Footers
+    function loadFooter() {
+        fetch('../footer.html') // Datei footer.html abrufen
+        .then(response => response.text()) // Inhalt als Text lesen
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        });
+    }
+
+    // Footer laden, sobald die Seite vollständig geladen ist
+    window.onload = loadFooter;
 </script>
 </body>
 
