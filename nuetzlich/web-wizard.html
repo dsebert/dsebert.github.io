@@ -132,6 +132,7 @@
                 <li>Beschwöre eine Überschrift</li>
                 <li>Erstelle einen Absatz</li>
                 <li>Baue ein Div</li>
+                <li>Lasse eine leere Zeile erscheinen</li>
                 <li>Erstelle eine Liste</li>
                 <li>Füge ein Bild hinzu</li>
                 <li>Erstelle einen Link</li>
@@ -239,11 +240,11 @@
                         element.appendChild(listItem);
                         htmlCode = `<ul><li>Ein mystisches Listenelement.</li></ul>`;
                         break;
-                    case 'Erstelle eine Leerzeile':
+                    case 'Lasse eine leere Zeile erscheinen':
                         element = document.createElement('br');
-                        element.textContent = '';
                         htmlCode = `<br>`;
                         break;
+
                     case 'Füge ein Bild hinzu':
                         element = document.createElement('img');
                         element.src = 'https://via.placeholder.com/150';
