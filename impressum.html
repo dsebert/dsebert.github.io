@@ -47,5 +47,24 @@
     <p>
         <strong>Rechtliche Hinweise: </strong>Das Design dieser Webseite, die verwendeten Grafiken sowie sämtliche Beiträge und Bilder sind urheberrechtlich geschützt. Eine Vervielfältigung ist nur für den privaten Gebrauch gestattet und darf keinerlei Änderungen enthalten. Die Verbreitung von Kopien oder Auszügen ist ausschließlich mit schriftlicher Genehmigung erlaubt.
     </p>
+
+    <!-- Hier wird der Footer geladen -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript zum Laden des Footers -->
+    <script>
+        // Funktion zum Laden des Footers
+        function loadFooter() {
+            fetch('footer.html') // Datei footer.html abrufen
+            .then(response => response.text()) // Inhalt als Text lesen
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+        }
+
+        // Footer laden, sobald die Seite vollständig geladen ist
+        window.onload = loadFooter;
+    </script>
+
 </body>
 </html>
