@@ -82,200 +82,226 @@
 </head>
 <body>
 
-<div id="gameUI">
-    <div id="timer">Time: 0</div>
-    <div id="difficulty">
-        <label for="difficultySelect">Difficulty: </label>
-        <select id="difficultySelect">
-            <option value="10">Easy</option>
-            <option value="20">Medium</option>
-            <option value="30">Hard</option>
-        </select>
-        <button onclick="startGame()">Start Game</button>
+    <div id="gameUI">
+        <div id="timer">
+            Time: 0
+        </div>
+        <div id="difficulty">
+            <label for="difficultySelect">Difficulty: </label>
+            <select id="difficultySelect">
+                <option value="10">Easy</option>
+                <option value="20">Medium</option>
+                <option value="30">Hard</option>
+            </select>
+            <button onclick="startGame()">Start Game</button>
+        </div>
     </div>
-</div>
 
-<canvas id="gameCanvas" width="400" height="400"></canvas>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
 
-<div id="joystickContainer" class="joystick">
-    <div class="joystick-inner"></div>
-</div>
+    <div id="joystickContainer" class="joystick">
+        <div class="joystick-inner"></div>
+    </div>
 
-<button id="fullscreenButton" onclick="toggleFullscreen()">Fullscreen</button>
+    <button id="fullscreenButton" onclick="toggleFullscreen()">Fullscreen</button>
 
-<script>
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    const tileSize = 40;
-    let player = { x: 0, y: 0 };
-    let maze, exit, gameInterval, timeElapsed = 0;
-    let difficulty = 10;
-    let isFullscreen = false;
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const tileSize = 40;
+        let player = {
+            x: 0,
+            y: 0
+        };
+        let maze, exit, gameInterval, timeElapsed = 0;
+        let difficulty = 10;
+        let isFullscreen = false;
 
-    // Joystick setup for mobile
-    let joystickContainer = document.getElementById('joystickContainer');
-    let joystickInner = document.querySelector('.joystick-inner');
-    let joystickCenter = { x: joystickContainer.offsetLeft + 50, y: joystickContainer.offsetTop + 50 };
-    let isMoving = false;
-    let startX, startY;
+        // Joystick setup for mobile
+        let joystickContainer = document.getElementById('joystickContainer');
+        let joystickInner = document.querySelector('.joystick-inner');
+        let joystickCenter = {
+            x: joystickContainer.offsetLeft + 50,
+            y: joystickContainer.offsetTop + 50
+        };
+        let isMoving = false;
+        let startX, startY;
 
-    document.getElementById('difficultySelect').addEventListener('change', function() {
-        difficulty = parseInt(this.value);
-    });
-
-    function createMaze(size) {
-        const maze = [];
-        for (let i = 0; i < size; i++) {
-            maze[i] = [];
-            for (let j = 0; j < size; j++) {
-                maze[i][j] = Math.random() > 0.7 ? 1 : 0; // 1 means wall, 0 means free path
-            }
-        }
-        maze[0][0] = 0; // Start
-        maze[size - 1][size - 1] = 0; // Exit
-        ensureValidPaths(maze);
-        return maze;
-    }
-
-    function ensureValidPaths(maze) {
-        const directions = [
-            { x: 0, y: 1 },
-            { x: 1, y: 0 },
-            { x: 1, y: 1 }
-        ];
-        directions.forEach(dir => {
-            if (maze[player.y + dir.y] && maze[player.y + dir.y][player.x + dir.x] === 1) {
-                maze[player.y + dir.y][player.x + dir.x] = 0;
-            }
-        });
-    }
-
-    function drawMaze() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (let i = 0; i < maze.length; i++) {
-            for (let j = 0; j < maze[i].length; j++) {
-                ctx.fillStyle = maze[i][j] === 1 ? '#333' : '#fff';
-                ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
-            }
-        }
-        // Draw exit
-        ctx.fillStyle = 'green';
-        ctx.fillRect(exit.x * tileSize, exit.y * tileSize, tileSize, tileSize);
-        // Draw player
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(player.x * tileSize, player.y * tileSize, tileSize, tileSize);
-    }
-
-    function updateTimer() {
-        timeElapsed++;
-        document.getElementById('timer').innerText = `Time: ${timeElapsed}`;
-    }
-
-    function startGame() {
-        player = { x: 0, y: 0 };
-        maze = createMaze(difficulty);
-        exit = { x: difficulty - 1, y: difficulty - 1 };
-        timeElapsed = 0;
-        if (gameInterval) clearInterval(gameInterval);
-        gameInterval = setInterval(updateTimer, 1000);
-        drawMaze();
-    }
-
-    function movePlayer(dx, dy) {
-        const newX = player.x + dx;
-        const newY = player.y + dy;
-        if (newX >= 0 && newX < maze.length && newY >= 0 && newY < maze.length && maze[newY][newX] === 0) {
-            player.x = newX;
-            player.y = newY;
-            drawMaze();
-            checkWin();
-        }
-    }
-
-    function checkWin() {
-        if (player.x === exit.x && player.y === exit.y) {
-            clearInterval(gameInterval);
-            alert(`You escaped the maze in ${timeElapsed} seconds!`);
-        }
-    }
-
-    window.addEventListener('keydown', function(e) {
-        switch (e.key) {
-            case 'ArrowUp': movePlayer(0, -1); break;
-            case 'ArrowDown': movePlayer(0, 1); break;
-            case 'ArrowLeft': movePlayer(-1, 0); break;
-            case 'ArrowRight': movePlayer(1, 0); break;
-        }
-    });
-
-    // Joystick control for touch devices
-    if ('ontouchstart' in window) {
-        joystickContainer.addEventListener('touchstart', (e) => {
-            isMoving = true;
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
+        document.getElementById('difficultySelect').addEventListener('change', function() {
+            difficulty = parseInt(this.value);
         });
 
-        joystickContainer.addEventListener('touchmove', (e) => {
-            if (!isMoving) return;
-
-            const touchX = e.touches[0].clientX;
-            const touchY = e.touches[0].clientY;
-
-            const dx = touchX - startX;
-            const dy = touchY - startY;
-
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance > 50) { // Only register moves if they are significant
-                const angle = Math.atan2(dy, dx);
-
-                // Calculate the new position of the joystick inner circle
-                const maxOffset = 30;
-                joystickInner.style.left = `${Math.cos(angle) * maxOffset + 30}px`;
-                joystickInner.style.top = `${Math.sin(angle) * maxOffset + 30}px`;
-
-                // Move player based on direction
-                if (Math.abs(dx) > Math.abs(dy)) {
-                    if (dx > 0) movePlayer(1, 0); // Right
-                    else movePlayer(-1, 0); // Left
-                } else {
-                    if (dy > 0) movePlayer(0, 1); // Down
-                    else movePlayer(0, -1); // Up
+        function createMaze(size) {
+            const maze = [];
+            for (let i = 0; i < size; i++) {
+                maze[i] = [];
+                for (let j = 0; j < size; j++) {
+                    maze[i][j] = Math.random() > 0.7 ? 1: 0; // 1 means wall, 0 means free path
                 }
+            }
+            maze[0][0] = 0; // Start
+            maze[size - 1][size - 1] = 0; // Exit
+            ensureValidPaths(maze);
+            return maze;
+        }
 
-                startX = touchX;
-                startY = touchY;
+        function ensureValidPaths(maze) {
+            const directions = [{
+                x: 0,
+                y: 1
+            },
+                {
+                    x: 1,
+                    y: 0
+                },
+                {
+                    x: 1,
+                    y: 1
+                }];
+            directions.forEach(dir => {
+                if (maze[player.y + dir.y] && maze[player.y + dir.y][player.x + dir.x] === 1) {
+                    maze[player.y + dir.y][player.x + dir.x] = 0;
+                }
+            });
+        }
+
+        function drawMaze() {
+            ctx.clearRect(0,
+                0,
+                canvas.width,
+                canvas.height);
+            for (let i = 0; i < maze.length; i++) {
+                for (let j = 0; j < maze[i].length; j++) {
+                    ctx.fillStyle = maze[i][j] === 1 ? '#333': '#fff';
+                    ctx.fillRect(j * tileSize, i * tileSize, tileSize, tileSize);
+                }
+            }
+            // Draw exit
+            ctx.fillStyle = 'green';
+            ctx.fillRect(exit.x * tileSize, exit.y * tileSize, tileSize, tileSize);
+            // Draw player
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(player.x * tileSize, player.y * tileSize, tileSize, tileSize);
+        }
+
+        function updateTimer() {
+            timeElapsed++;
+            document.getElementById('timer').innerText = `Time: ${timeElapsed}`;
+        }
+
+        function startGame() {
+            player = {
+                x: 0,
+                y: 0
+            };
+            maze = createMaze(difficulty);
+            exit = {
+                x: difficulty - 1,
+                y: difficulty - 1
+            };
+            timeElapsed = 0;
+            if (gameInterval) clearInterval(gameInterval);
+            gameInterval = setInterval(updateTimer, 1000);
+            drawMaze();
+        }
+
+        function movePlayer(dx, dy) {
+            const newX = player.x + dx;
+            const newY = player.y + dy;
+            if (newX >= 0 && newX < maze.length && newY >= 0 && newY < maze.length && maze[newY][newX] === 0) {
+                player.x = newX;
+                player.y = newY;
+                drawMaze();
+                checkWin();
+            }
+        }
+
+        function checkWin() {
+            if (player.x === exit.x && player.y === exit.y) {
+                clearInterval(gameInterval);
+                alert(`You escaped the maze in ${timeElapsed} seconds!`);
+            }
+        }
+
+        window.addEventListener('keydown', function(e) {
+            switch (e.key) {
+                case 'ArrowUp': movePlayer(0, -1); break;
+                case 'ArrowDown': movePlayer(0, 1); break;
+                case 'ArrowLeft': movePlayer(-1, 0); break;
+                case 'ArrowRight': movePlayer(1, 0); break;
             }
         });
 
-        joystickContainer.addEventListener('touchend', () => {
-            isMoving = false;
-            joystickInner.style.left = '30px';
-            joystickInner.style.top = '30px';
-        });
-    }
+        // Joystick control for touch devices
+        if ('ontouchstart' in window) {
+            joystickContainer.addEventListener('touchstart', (e) => {
+                isMoving = true;
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            });
 
-    function toggleFullscreen() {
-        const fullscreenButton = document.getElementById('fullscreenButton');
-        if (!isFullscreen) {
-            // Enter fullscreen
-            canvas.style.width = '100vw';
-            canvas.style.height = '100vh';
-            document.body.classList.add('fullscreen');
-            fullscreenButton.textContent = 'Minimize';
-            fullscreenButton.classList.add('minimized');
-        } else {
-            // Exit fullscreen
-            canvas.style.width = '400px';
-            canvas.style.height = '400px';
-            document.body.classList.remove('fullscreen');
-            fullscreenButton.textContent = 'Fullscreen';
-            fullscreenButton.classList.remove('minimized');
+            joystickContainer.addEventListener('touchmove', (e) => {
+                if (!isMoving) return;
+
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+
+                const dx = touchX - startX;
+                const dy = touchY - startY;
+
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance > 50) {
+                    // Only register moves if they are significant
+                    const angle = Math.atan2(dy, dx);
+
+                    // Calculate the new position of the joystick inner circle
+                    const maxOffset = 30;
+                    joystickInner.style.left = `${Math.cos(angle) * maxOffset + 30}px`;
+                    joystickInner.style.top = `${Math.sin(angle) * maxOffset + 30}px`;
+
+                    // Move player based on direction
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                        if (dx > 0) movePlayer(1, 0); // Right
+                        else movePlayer(-1, 0); // Left
+                    } else {
+                        if (dy > 0) movePlayer(0, 1); // Down
+                        else movePlayer(0, -1); // Up
+                    }
+
+                    startX = touchX;
+                    startY = touchY;
+                }
+            });
+
+            joystickContainer.addEventListener('touchend',
+                () => {
+                    isMoving = false;
+                    joystickInner.style.left = '30px';
+                    joystickInner.style.top = '30px';
+                });
         }
-        isFullscreen = !isFullscreen;
-    }
-</script>
+
+        function toggleFullscreen() {
+            const fullscreenButton = document.getElementById('fullscreenButton');
+            if (!isFullscreen) {
+                // Enter fullscreen
+                canvas.style.width = '100vw';
+                canvas.style.height = '100vh';
+                document.body.classList.add('fullscreen');
+                fullscreenButton.textContent = 'Minimize';
+                fullscreenButton.classList.add('minimized');
+            } else {
+                // Exit fullscreen
+                canvas.style.width = '400px';
+                canvas.style.height = '400px';
+                document.body.classList.remove('fullscreen');
+                fullscreenButton.textContent = 'Fullscreen';
+                fullscreenButton.classList.remove('minimized');
+            }
+            isFullscreen = !isFullscreen;
+        }
+    </script>
 
 </body>
 </html>
