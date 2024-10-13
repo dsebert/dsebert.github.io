@@ -5,12 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Falling Blocks</title>
     <style>
-        body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; flex-direction: column; }
-        canvas { border: 2px solid #000; background-color: #fff; }
-        .joystick { width: 100px; height: 100px; background: rgba(0, 0, 0, 0.3); border-radius: 50%; position: relative; margin: 20px; display: none; }
-        .stick { width: 50px; height: 50px; background: #000; border-radius: 50%; position: absolute; top: 25%; left: 25%; transform: translate(-50%, -50%); }
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+        canvas {
+            border: 2px solid #000;
+            background-color: #fff;
+        }
+        .joystick {
+            width: 100px;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            position: relative;
+            margin: 20px;
+            display: none;
+        }
+        .stick {
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 25%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+        }
     </style>
-    
+
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434cdbd330004239a922a01e6f7e1238"}'></script>
     <!-- End Cloudflare Web Analytics -->
@@ -80,7 +108,9 @@
 
         function createBlock() {
             const x = Math.random() * (canvas.width - blockSize);
-            blocks.push({ x, y: 0 });
+            blocks.push({
+                x, y: 0
+            });
         }
 
         function update() {
@@ -130,6 +160,23 @@
         }
 
         gameLoop();
+    </script>
+    <!-- Hier wird der Footer geladen -->
+    <div id="footer-placeholder"></div>
+
+    <!-- JavaScript zum Laden des Footers -->
+    <script>
+        // Funktion zum Laden des Footers
+        function loadFooter() {
+            fetch('../footer.html') // Datei footer.html abrufen
+            .then(response => response.text()) // Inhalt als Text lesen
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+        }
+
+        // Footer laden, sobald die Seite vollständig geladen ist
+        window.onload = loadFooter;
     </script>
 </body>
 </html>
