@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suchmaschine</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #search-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .result {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .result a {
+            text-decoration: none;
+            color: #000;
+        }
+        .result a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Suchmaschine</h1>
+    <input type="text" id="search-box" placeholder="Suche nach Artikeln..." onkeyup="search()">
+
+    <div id="results"></div>
+
+    <script>
+        // Funktion zur Berechnung der Levenshtein-Distanz (Fehlertoleranz)
+        function levenshtein(a, b) {
+            const matrix = Array.from({ length: b.length + 1 }, () =>
+                Array.from({ length: a.length + 1 }, () => 0)
+            );
+
+            for (let i = 0; i <= a.length; i++) matrix[0][i] = i;
+            for (let j = 0; j <= b.length; j++) matrix[j][0] = j;
+
+            for (let j = 1; j <= b.length; j++) {
+                for (let i = 1; i <= a.length; i++) {
+                    if (b[j - 1] === a[i - 1]) {
+                        matrix[j][i] = matrix[j - 1][i - 1];
+                    } else {
+                        matrix[j][i] = Math.min(
+                            matrix[j - 1][i - 1] + 1, // Ersetzen
+                            matrix[j][i - 1] + 1,     // Einfügen
+                            matrix[j - 1][i] + 1      // Löschen
+                        );
+                    }
+                }
+            }
+
+            return matrix[b.length][a.length];
+        }
+
+        // Funktion zur Durchführung der Fuzzy-Suche (mit Levenshtein-Distanz)
+        function fuzzyMatch(input, target, threshold = 3) {
+            return levenshtein(input, target) <= threshold;
+        }
+
+        // Suchfunktion, die sowohl Meta-Tags als auch Titel/Inhalt durchsucht
+        async function search() {
+            let input = document.getElementById('search-box').value.toLowerCase();
+
+            // Die JSON-Datenbank abrufen
+            let response = await fetch('datenbank.json');
+            let projekte = await response.json();
+
+            let resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = ''; // Vorherige Ergebnisse löschen
+
+            projekte.forEach(projekt => {
+                // Suche in Titel, Inhalt, Meta-Schlüsselwörtern und Meta-Beschreibung
+                if (projekt.titel.toLowerCase().includes(input) || 
+                    projekt.inhalt.toLowerCase().includes(input) || 
+                    projekt.meta_keywords.toLowerCase().includes(input) || 
+                    projekt.meta_description.toLowerCase().includes(input) ||
+                    fuzzyMatch(input, projekt.titel.toLowerCase()) ||
+                    fuzzyMatch(input, projekt.inhalt.toLowerCase()) ||
+                    fuzzyMatch(input, projekt.meta_keywords.toLowerCase()) ||
+                    fuzzyMatch(input, projekt.meta_description.toLowerCase())) {
+
+                    let resultDiv = document.createElement('div');
+                    resultDiv.classList.add('result');
+                    resultDiv.innerHTML = `
+                        <h3><a href="${projekt.url}">${projekt.titel}</a></h3>
+                        <p>${projekt.inhalt}</p>
+                    `;
+                    resultsDiv.appendChild(resultDiv);
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
