@@ -19,12 +19,31 @@
     <!-- End Cloudflare Web Analytics -->
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
+<!-- Hier wird der Header geladen -->
+<div id="Header-placeholder"></div>
+
+<!-- JavaScript zum Laden des Headers -->
+<script>
+    // Funktion zum Laden des Headers
+    function loadHeader() {
+        fetch('../header.html') // Datei header.html abrufen
+        .then(response => response.text()) // Inhalt als Text lesen
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+        });
+    }
+
+    // Header laden, sobald die Seite vollständig geladen ist
+    window.onload = loadHeader;
+</script>
+
 <div class="hero">
     <h1>Willkommen auf der nützlichsten unnützen Seite im Web!</h1>
     <p>
         Entdecke nützliche und unnütze Dinge sowie tolle Spiele.
     </p>
 </div>
+
 
 
 <!-- Hier wird der Footer geladen -->
