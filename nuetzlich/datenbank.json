@@ -1,18 +1,18 @@
 [
     {
         "id": 1,
-        "titel": "Raspberry Pi Setup",
-        "inhalt": "Anleitung zur Einrichtung eines Raspberry Pi.",
-        "url": "/projekte/raspberry-pi-setup.html",
-        "meta_keywords": "raspberry pi, einrichtung, setup, tutorial",
-        "meta_description": "Eine detaillierte Anleitung, um einen Raspberry Pi einzurichten."
+        "titel": "Computer Projekte",
+        "inhalt": "Anleitung für verschiedene Computerprojekte.",
+        "url": "computer-projekte.html",
+        "meta_keywords": "raspberry pi, einrichtung, setup, tutorial, computer, vbs, visual basic, bat, batch",
+        "meta_description": "Detaillierte Anleitungen, um verschiedene Computer Projekte zu verwirklichen."
     },
     {
         "id": 2,
-        "titel": "HTML/CSS Tutorial",
-        "inhalt": "Ein detailliertes Tutorial zu HTML und CSS.",
-        "url": "/projekte/html-css-tutorial.html",
-        "meta_keywords": "html, css, webentwicklung, design",
+        "titel": "HTML/CSS/JS Tutorial",
+        "inhalt": "Lerne Spielerisch HTML, CSS und JavaScript.",
+        "url": "web-wizard.html",
+        "meta_keywords": "html, css, JS, JavaScript, Java, webentwicklung, design, lern",
         "meta_description": "Lerne HTML und CSS von Grund auf."
     }
 ]
