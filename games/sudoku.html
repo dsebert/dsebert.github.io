@@ -82,7 +82,7 @@
             margin-top: 20px;
         }
     </style>
-    
+
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434cdbd330004239a922a01e6f7e1238"}'></script>
     <!-- End Cloudflare Web Analytics -->
@@ -252,13 +252,22 @@
 
     generateSudoku(); // Startet das erste Sudoku bei Seitenaufruf
 </script>
-<footer>
-    <p>
-        &copy; 2024 Die nützlichste unnütze Seite im Web. Alle Rechte vorbehalten.
-    </p>
-    <p>
-        <a href="../impressum.html" style="color: #fff;">Impressum</a>
-    </p>
-</footer>
+<!-- Hier wird der Footer geladen -->
+<div id="footer-placeholder"></div>
+
+<!-- JavaScript zum Laden des Footers -->
+<script>
+    // Funktion zum Laden des Footers
+    function loadFooter() {
+        fetch('../footer.html') // Datei footer.html abrufen
+        .then(response => response.text()) // Inhalt als Text lesen
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        });
+    }
+
+    // Footer laden, sobald die Seite vollständig geladen ist
+    window.onload = loadFooter;
+</script>
 </body>
 </html>
