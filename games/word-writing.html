@@ -3,126 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wort-Suchspiel</title>
+    <title>Wörter auf Zeit Spiel</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
+            background-color: #f4f4f4;
+            padding: 50px;
         }
         #game {
-            display: inline-block;
-            margin-top: 20px;
+            margin: 0 auto;
+            max-width: 400px;
+            background: white;
             padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         #wordDisplay {
             font-size: 24px;
-            margin: 10px 0;
+            margin: 20px 0;
         }
         #input {
-            font-size: 20px;
-            padding: 5px;
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
         }
-        #score {
+        #submit {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        #score, #timer {
             font-size: 20px;
             margin: 10px 0;
         }
     </style>
-
-    <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434cdbd330004239a922a01e6f7e1238"}'></script>
-    <!-- End Cloudflare Web Analytics -->
 </head>
 <body>
-    <h1>Wort-Suchspiel</h1>
-    <div id="game">
-        <div id="wordDisplay"></div>
-        <input type="text" id="input" placeholder="Gib das Wort ein" />
-        <button id="submit">Einreichen</button>
-        <div id="score">
-            Punkte: 0
-        </div>
-        <div id="timer">
-            Zeit: 30s
-        </div>
-    </div>
 
-    <script>
-        const words = ["Baum", "laufen", "Tisch", "springen", "Haus", "fahren", "Blume", "schwimmen", "Katze", "lernen", "Hund", "schreiben", "Auto", "kochen", "Buch", "lesen", "Fluss", "bauen", "Himmel", "reisen", "Fisch", "zeichnen", "Vogel", "singen", "Zug", "arbeiten", "Schule", "spielen", "Wolke", "fliegen", "Stuhl", "essen", "Berg", "schlafen", "Straße", "reden", "See", "denken", "Licht", "malen", "Stadt", "kaufen", "Bus", "laufen", "Flugzeug", "lernen", "Schrank", "fahren", "Tasche", "wohnen", "Blatt", "werfen", "Hose", "lesen", "Schuhe", "schreiben", "Ball", "springen", "Fenster", "bauen", "Teller", "kochen", "Blume", "gießen", "Schlüssel", "öffnen", "Bett", "liegen", "Tür", "schließen", "Kerze", "brennen", "Gabel", "essen", "Topf", "kochen", "Baum", "pflanzen", "Fahrrad", "fahren", "Computer", "programmieren", "Handy", "telefonieren", "Tisch", "decken", "Stuhl", "sitzen", "Lampe", "leuchten", "Himmel", "beobachten", "Sonne", "scheinen", "Wasser", "trinken", "Mond", "sehen", "Sterne", "funkeln", "Blume", "blühen", "Buch", "aufmachen", "Zeitung", "lesen", "Kaffee", "trinken", "Brot", "schneiden", "Zug", "einsteigen", "Bus", "warten", "Flugzeug", "landen", "Schiff", "fahren", "Auto", "parken", "Park", "besuchen", "Stadt", "erkunden", "Land", "bereisen", "See", "schwimmen", "Meer", "tauchen", "Wald", "wandern", "Berg", "besteigen", "Höhle", "erkunden", "Brücke", "überqueren", "Tunnel", "durchfahren", "Straße", "überqueren", "Ampel", "warten", "Kreuzung", "überqueren", "Weg", "gehen", "Zebra", "streifen", "Löwe", "brüllen", "Hund", "bellen", "Katze", "miauen", "Vogel", "zwitschern", "Fisch", "schwimmen", "Maus", "laufen", "Biene", "summen", "Schlange", "kriechen", "Elefant", "trampeln", "Affe", "klettern", "Pferd", "galoppieren", "Kuh", "weiden", "Schaf", "blöken", "Schwein", "quieken", "Hase", "hüpfen", "Kaninchen", "graben", "Bär", "brummen", "Tiger", "pirschen", "Giraffe", "fressen", "Kamel", "wandern", "Apfel", "essen", "Bahn", "fahren", "Blatt", "fallen", "Wasserfall", "rauschen", "Garten", "arbeiten", "Blume", "pflücken", "Kamera", "fotografieren", "Boden", "fegen", "Pinsel", "streichen", "Tee", "aufgießen", "Fenster", "putzen", "Kühlschrank", "öffnen", "Radio", "hören", "Schrank", "einräumen", "Fahne", "wehen", "Zaun", "streichen", "Lied", "singen", "Baustelle", "arbeiten", "Stroh", "dreschen", "Bienenstock", "ernten", "Werkzeug", "benutzen", "Sand", "schaufeln", "Keks", "backen", "Teller", "spülen", "Eis", "schmelzen", "Schnee", "werfen", "Handschuh", "anziehen", "Mütze", "aufsetzen", "Hemd", "bügeln", "Jacke", "anziehen", "Schal", "wickeln", "Löffel", "nehmen", "Kuchen", "servieren", "Fahrrad", "reparieren", "Sofa", "stellen", "Brett", "sägen", "Nagel", "hämmern", "Papier", "schneiden", "Stempel", "drücken", "Zettel", "schreiben", "Messer", "schärfen", "Schachtel", "öffnen", "Boden", "wischen", "Schirm", "aufspannen", "Wolken", "ziehen", "Regen", "tropfen", "Donner", "grollen", "Blitz", "zucken", "Feuer", "brennen", "Rauch", "steigen", "Glut", "glimmen", "Asche", "rieseln", "Wind", "pfeifen", "Schweigen", "hören", "Glocke", "läuten", "Turm", "stehen", "Kirche", "beten", "Platz", "füllen", "Laden", "schließen", "Markt", "besuchen", "Straßenbahn", "fahren", "Bahnhof", "warten", "Bahnsteig", "einsteigen", "Gleis", "wechseln", "Brunnen", "sprudeln", "Kerze", "anzünden", "Schnecke", "kriechen", "Hummel", "summen", "Krebs", "krabbeln", "Qualle", "schwimmen", "Libelle", "fliegen", "Spinne", "weben", "Kröte", "springen", "Eule", "schreien", "Adler", "greifen", "Luchs", "lauern", "Wolfsrudel", "heulen", "Luchs", "schleichen", "Hirsch", "fliehen", "Elch", "wandern", "Ziege", "meckern", "Huhn", "gackern", "Esel", "schreien", "Mücke", "stechen", "Möwe", "kreischen", "Lamm", "blöken", "Pfau", "schreien", "Dachs", "wühlen", "Otter", "tauchen", "Robbe", "winken", "Wal", "tauchen", "Delfin", "springen", "Auster", "öffnen", "Alge", "schwimmen", "Krabbe", "laufen", "Hering", "schwimmen", "Forelle", "springen", "Hai", "jagen", "Orca", "singen", "Kormoran", "tauchen", "Pelikan", "fliegen", "Flamingo", "waten", "Lachs", "ziehen", "Hering", "ziehen", "Thunfisch", "schwimmen", "Krokodil", "lauern", "Tukan", "schreien", "Papagei", "fliegen", "Pinguin", "watscheln", "Pfau", "tanzen", "Falke", "kreisen", "Specht", "hämmern", "Schwan", "gleiten", "Reiher", "stehen", "Kranich", "ziehen", "Kormoran", "trocknen", "Ente", "watscheln", "Gans", "schnattern", "Huhn", "pick", "Schneeleopard", "springen", "Wiesel", "flitzen", "Marder", "klettern", "Luchs", "pirschen", "Iltis", "schleichen", "Nerz", "schwimmen", "Storch", "fliegen", "Kröte", "quaken", "Lurch", "kriechen", "Molch", "tauchen", "Salamander", "laufen", "Gecko", "flitzen", "Chamäleon", "wechseln", "Kobra", "zischen", "Python", "würgen", "Echse", "klettern", "Gürteltier", "rollen", "Opossum", "hängen", "Koala", "schlafen", "Känguru", "springen", "Wombat", "graben", "Dingo", "jagen", "Kiwi", "suchen", "Papagei", "plappern", "Esel", "laufen", "Walross", "tauchen", "Seehund", "schnappen"];
-            let score = 0;
-            let timeLeft = 30;
-            let currentWord;
+<div id="game">
+    <h1>Wörter auf Zeit</h1>
+    <div id="wordDisplay">Wort erscheint hier</div>
+    <input type="text" id="input" placeholder="Gib das Wort ein">
+    <button id="submit">Einreichen</button>
+    <div id="score">Punkte: 0</div>
+    <div id="timer">Zeit: 30s</div>
+</div>
 
-            const wordDisplay = document.getElementById('wordDisplay');
-            const input = document.getElementById('input');
-            const scoreDisplay = document.getElementById('score');
-            const timerDisplay = document.getElementById('timer');
-            const submitButton = document.getElementById('submit');
+<script>
+    let words = [];
+    let score = 0;
+    let timeLeft = 30;
+    let currentWord;
 
-            function startGame() {
-            timeLeft = 10;
-            score = 0;
-            updateScore();
-            generateWord();
-            startTimer();
-            }
+    const wordDisplay = document.getElementById('wordDisplay');
+    const input = document.getElementById('input');
+    const scoreDisplay = document.getElementById('score');
+    const timerDisplay = document.getElementById('timer');
+    const submitButton = document.getElementById('submit');
 
-            function generateWord() {
-            currentWord = words[Math.floor(Math.random() * words.length)];
-            wordDisplay.textContent = currentWord;
-            input.value = '';
-            input.focus();
-            }
+    function startGame() {
+        timeLeft = 30;
+        score = 0;
+        updateScore();
+        generateWord();
+        startTimer();
+    }
 
-            function startTimer() {
-            const timer = setInterval(() => {
+    function generateWord() {
+        currentWord = words[Math.floor(Math.random() * words.length)];
+        wordDisplay.textContent = currentWord;
+        input.value = '';
+        input.focus();
+    }
+
+    function startTimer() {
+        const timer = setInterval(() => {
             timeLeft--;
             timerDisplay.textContent = `Zeit: ${timeLeft}s`;
             if (timeLeft <= 0) {
                 clearInterval(timer);
                 alert(`Zeit abgelaufen! Deine Punkte: ${score}`);
                 startGame();
-                }
-                },
-                1000);
-                }
+            }
+        }, 1000);
+    }
 
-                submitButton.addEventListener('click', () => {
-                if (input.value === currentWord) {
-                score++;
-                updateScore();
-                generateWord();
-                } else {
-                alert('Falsches Wort! Versuch es noch einmal.');
-                }
-                });
+    submitButton.addEventListener('click', () => {
+        if (input.value === currentWord) {
+            score++;
+            updateScore();
+            generateWord();
+        } else {
+            alert('Falsches Wort! Versuch es noch einmal.');
+        }
+    });
 
-                function updateScore() {
-                scoreDisplay.textContent = `Punkte: ${score}`;
-                }
+    function updateScore() {
+        scoreDisplay.textContent = `Punkte: ${score}`;
+    }
 
-                startGame();
-            </script>
-            <!-- Hier wird der Footer geladen -->
-            <div id="footer-placeholder"></div>
+    // Wörter aus der words.txt laden
+    fetch('words.txt')
+        .then(response => response.text())
+        .then(data => {
+            // Die Wörter in ein Array umwandeln
+            words = data.split(',').map(word => word.trim().replace(/"/g, '')); // Anführungszeichen entfernen und trimmen
+            startGame(); // Spiel starten, nachdem die Wörter geladen sind
+        })
+        .catch(error => {
+            console.error('Fehler beim Laden der Wörter:', error);
+        });
+</script>
 
-            <!-- JavaScript zum Laden des Footers -->
-            <script>
-                // Funktion zum Laden des Footers
-                function loadFooter() {
-                    fetch('../footer.html') // Datei footer.html abrufen
-                    .then(response => response.text()) // Inhalt als Text lesen
-                    .then(data => {
-                        document.getElementById('footer-placeholder').innerHTML = data;
-                    });
-                }
-
-                // Footer laden, sobald die Seite vollständig geladen ist
-                window.onload = loadFooter;
-            </script>
-        </body>
-    </html>
+</body>
+</html>
