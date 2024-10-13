@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Wizard - Learn HTML, CSS & JavaScript</title>
+    <title>Web Wizard - Lerne HTML, CSS & JavaScript</title>
     <style>
         * {
             box-sizing: border-box;
@@ -27,9 +27,7 @@
             width: 20%;
             padding: 20px;
             overflow-y: auto;
-            /* Enable vertical scrolling */
             height: 100vh;
-            /* Full height of the viewport */
         }
 
         #sidebar h2 {
@@ -121,7 +119,7 @@
             cursor: pointer;
         }
     </style>
-    
+
     <!-- Cloudflare Web Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434cdbd330004239a922a01e6f7e1238"}'></script>
     <!-- End Cloudflare Web Analytics -->
@@ -129,54 +127,54 @@
 <body>
     <div id="game-container">
         <div id="sidebar">
-            <h2>Your Spells</h2>
+            <h2>Deine Zauber</h2>
             <ul>
-                <li>Summon a Header</li>
-                <li>Create a Paragraph</li>
-                <li>Build a Div</li>
-                <li>Create a List</li>
-                <li>Add an Image</li>
-                <li>Create a Link</li>
+                <li>Beschwöre eine Überschrift</li>
+                <li>Erstelle einen Absatz</li>
+                <li>Baue ein Div</li>
+                <li>Erstelle eine Liste</li>
+                <li>Füge ein Bild hinzu</li>
+                <li>Erstelle einen Link</li>
             </ul>
-            <h2>Apply CSS</h2>
+            <h2>CSS anwenden</h2>
             <ul>
-                <li>Make Background Red</li>
-                <li>Make Text Larger</li>
-                <li>Center the Text</li>
-                <li>Change Background Color</li>
+                <li>Mache den Hintergrund rot</li>
+                <li>Vergrößere den Text</li>
+                <li>Zentriere den Text</li>
+                <li>Ändere die Hintergrundfarbe</li>
             </ul>
-            <h2>Add JavaScript</h2>
+            <h2>JavaScript hinzufügen</h2>
             <ul>
-                <li>Shake on Click</li>
-                <li>Rotate on Click</li>
-                <li>Change Color on Hover</li>
+                <li>Schütteln beim Klicken</li>
+                <li>Drehen beim Klicken</li>
+                <li>Farbe bei Hover ändern</li>
             </ul>
             <div id="color-picker">
-                <label for="color">Choose Color:</label>
+                <label for="color">Farbe wählen:</label>
                 <input type="color" id="color" value="#ffffff">
             </div>
-            <button id="reset-button">Reset Game</button>
+            <button id="reset-button">Spiel zurücksetzen</button>
         </div>
 
         <div id="main-content">
-            <h1>Welcome to the Magical World of Web Wizard</h1>
+            <h1>Willkommen in der magischen Welt des Web Wizard</h1>
             <p>
-                Start learning HTML, CSS, and JavaScript by creating, styling, and animating your web page.
+                Lerne HTML, CSS und JavaScript, indem du deine Webseite erstellst, gestaltest und animierst.
             </p>
             <div id="game-area">
-                <!-- This is where the player will see their progress -->
+                <!-- Hier wird der Fortschritt des Spielers angezeigt -->
             </div>
             <div id="code-output">
-                <!-- Generated HTML code will appear here -->
+                <!-- Der generierte HTML-Code wird hier erscheinen -->
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const htmlSpells = document.querySelectorAll('#sidebar ul:nth-of-type(1) li'); // HTML spells
-            const cssSpells = document.querySelectorAll('#sidebar ul:nth-of-type(2) li'); // CSS spells
-            const jsSpells = document.querySelectorAll('#sidebar ul:nth-of-type(3) li'); // JavaScript spells
+            const htmlSpells = document.querySelectorAll('#sidebar ul:nth-of-type(1) li'); // HTML-Zauber
+            const cssSpells = document.querySelectorAll('#sidebar ul:nth-of-type(2) li'); // CSS-Zauber
+            const jsSpells = document.querySelectorAll('#sidebar ul:nth-of-type(3) li'); // JavaScript-Zauber
             const gameArea = document.getElementById('game-area');
             const codeOutput = document.getElementById('code-output');
             const colorPicker = document.getElementById('color');
@@ -217,60 +215,62 @@
                 let element;
                 let htmlCode = '';
                 switch (spell) {
-                    case 'Summon a Header':
+                    case 'Beschwöre eine Überschrift':
                         element = document.createElement('h2');
-                        element.textContent = 'Magical Header Appears!';
-                        htmlCode = `<h2>Magical Header Appears!</h2>`;
+                        element.textContent = 'Eine magische Überschrift erscheint!';
+                        htmlCode = `<h2>Eine magische Überschrift erscheint!</h2>`;
                         break;
-                    case 'Create a Paragraph':
+                    case 'Erstelle einen Absatz':
                         element = document.createElement('p');
-                        element.textContent = 'A mystical paragraph has been created.';
-                        htmlCode = `<p>A mystical paragraph has been created.</p>`;
+                        element.textContent = 'Ein mystischer Absatz wurde erstellt.';
+                        htmlCode = `<p>Ein mystischer Absatz wurde erstellt.</p>`;
                         break;
-                    case 'Build a Div':
+                    case 'Baue ein Div':
                         element = document.createElement('div');
-                        element.textContent = 'A powerful div block emerges!';
+                        element.textContent = 'Ein mächtiger Div-Block taucht auf!';
                         element.style.border = '1px solid black';
                         element.style.padding = '10px';
-                        htmlCode = `<div style="border: 1px solid black; padding: 10px;">A powerful div block emerges!</div>`;
+                        htmlCode = `<div style="border: 1px solid black; padding: 10px;">Ein mächtiger Div-Block taucht auf!</div>`;
                         break;
-                    case 'Create a List':
+                    case 'Erstelle eine Liste':
                         element = document.createElement('ul');
                         const listItem = document.createElement('li');
-                        listItem.textContent = 'A mystical list item.';
+                        listItem.textContent = 'Ein mystisches Listenelement.';
                         element.appendChild(listItem);
-                        htmlCode = `<ul><li>A mystical list item.</li></ul>`;
+                        htmlCode = `<ul><li>Ein mystisches Listenelement.</li></ul>`;
                         break;
-                    case 'Add an Image':
+                    case 'Erstelle eine Leerzeile':
+                        element = document.createElement('br');
+                        element.textContent = '';
+                        htmlCode = `<br>`;
+                        break;
+                    case 'Füge ein Bild hinzu':
                         element = document.createElement('img');
                         element.src = 'https://via.placeholder.com/150';
-                        element.alt = 'Placeholder Image';
-                        htmlCode = `<img src="../home.ico" alt="Placeholder Image">`;
+                        element.alt = 'Platzhalter-Bild';
+                        htmlCode = `<img src="https://via.placeholder.com/150" alt="Platzhalter-Bild">`;
                         break;
-                    case 'Create a Link':
+                    case 'Erstelle einen Link':
                         element = document.createElement('a');
                         element.href = 'https://example.com';
-                        element.textContent = 'Visit Example.com';
-                        htmlCode = `<a href="https://example.com">Visit Example.com</a>`;
+                        element.textContent = 'Besuche Example.com';
+                        htmlCode = `<a href="https://example.com">Besuche Example.com</a>`;
                         break;
                     default:
                         element = document.createElement('p');
-                        element.textContent = 'Unknown spell...';
-                        htmlCode = `<p>Unknown spell...</p>`;
+                        element.textContent = 'Unbekannter Zauber...';
+                        htmlCode = `<p>Unbekannter Zauber...</p>`;
                     }
 
-                    // Append the new element to the game area and make it selectable
                     gameArea.appendChild(element);
                     element.addEventListener('click',
                         function () {
                             selectElement(element);
                         });
 
-                    // Add the generated code to the output
                     generatedCode += htmlCode + '\n';
                     codeOutput.textContent = generatedCode;
 
-                    // Show the game area and code output when content is added
                     if (gameArea.children.length > 0) {
                         gameArea.style.display = 'block';
                         codeOutput.style.display = 'block';
@@ -279,55 +279,54 @@
 
                 function castCSSSpell(spell) {
                     if (!selectedElement) {
-                        alert('Select an element to apply styles.');
+                        alert('Wähle ein Element, um Stile anzuwenden.');
                         return;
                     }
                     switch (spell) {
-                    case 'Make Background Red':
+                    case 'Mache den Hintergrund rot':
                         selectedElement.style.backgroundColor = 'red';
                         break;
-                    case 'Make Text Larger':
-                        selectedElement.style.fontSize = '24px';
+                    case 'Vergrößere den Text':
+                        selectedElement.style.fontSize = '2em';
                         break;
-                    case 'Center the Text':
+                    case 'Zentriere den Text':
                         selectedElement.style.textAlign = 'center';
                         break;
-                    case 'Change Background Color':
+                    case 'Ändere die Hintergrundfarbe':
                         selectedElement.style.backgroundColor = colorPicker.value;
                         break;
                     }
-
-                    updateGeneratedCode();
                 }
 
                 function castJavaScriptSpell(spell) {
                     if (!selectedElement) {
-                        alert('Select an element to apply JavaScript.');
+                        alert('Wähle ein Element, um Animationen hinzuzufügen.');
                         return;
                     }
                     switch (spell) {
-                    case 'Shake on Click':
-                        selectedElement.addEventListener('click', function () {
-                            selectedElement.classList.add('shake');
-                            setTimeout(() => selectedElement.classList.remove('shake'), 500);
-                        });
+                    case 'Schütteln beim Klicken':
+                        selectedElement.classList.add('shake');
+                        setTimeout(function () {
+                            selectedElement.classList.remove('shake');
+                        }, 1000);
                         break;
-                    case 'Rotate on Click':
-                        selectedElement.addEventListener('click', function () {
-                            selectedElement.classList.add('rotate');
-                        });
+                    case 'Drehen beim Klicken':
+                        selectedElement.classList.add('rotate');
+                        setTimeout(function () {
+                            selectedElement.classList.remove('rotate');
+                        }, 1000);
                         break;
-                    case 'Change Color on Hover':
-                        selectedElement.addEventListener('mouseover', function () {
-                            selectedElement.style.backgroundColor = 'blue';
-                        });
-                        selectedElement.addEventListener('mouseout', function () {
-                            selectedElement.style.backgroundColor = '';
-                        });
+                    case 'Farbe bei Hover ändern':
+                        selectedElement.addEventListener('mouseover',
+                            function () {
+                                selectedElement.style.backgroundColor = colorPicker.value;
+                            });
+                        selectedElement.addEventListener('mouseout',
+                            function () {
+                                selectedElement.style.backgroundColor = '';
+                            });
                         break;
                     }
-
-                    updateGeneratedCode();
                 }
 
                 function selectElement(element) {
@@ -341,22 +340,10 @@
                 function resetGame() {
                     gameArea.innerHTML = '';
                     codeOutput.textContent = '';
-                    generatedCode = '';
-                    selectedElement = null;
                     gameArea.style.display = 'none';
                     codeOutput.style.display = 'none';
-                }
-
-                function updateGeneratedCode() {
-                    let newCode = '';
-                    gameArea.childNodes.forEach(node => {
-                        // Only consider element nodes (ignore text or comment nodes)
-                        if (node.nodeType === 1) {
-                            newCode += node.outerHTML + '\n';
-                        }
-                    });
-                    generatedCode = newCode;
-                    codeOutput.textContent = generatedCode;
+                    generatedCode = '';
+                    selectedElement = null;
                 }
             });
         </script>
