@@ -41,8 +41,12 @@
     <script>
         // Funktion zur Berechnung der Levenshtein-Distanz (Fehlertoleranz)
         function levenshtein(a, b) {
-            const matrix = Array.from({ length: b.length + 1 }, () =>
-                Array.from({ length: a.length + 1 }, () => 0)
+            const matrix = Array.from({
+                length: b.length + 1
+            }, () =>
+                Array.from({
+                    length: a.length + 1
+                }, () => 0)
             );
 
             for (let i = 0; i <= a.length; i++) matrix[0][i] = i;
@@ -55,8 +59,8 @@
                     } else {
                         matrix[j][i] = Math.min(
                             matrix[j - 1][i - 1] + 1, // Ersetzen
-                            matrix[j][i - 1] + 1,     // Einfügen
-                            matrix[j - 1][i] + 1      // Löschen
+                            matrix[j][i - 1] + 1, // Einfügen
+                            matrix[j - 1][i] + 1 // Löschen
                         );
                     }
                 }
@@ -83,9 +87,9 @@
 
             projekte.forEach(projekt => {
                 // Suche in Titel, Inhalt, Meta-Schlüsselwörtern und Meta-Beschreibung
-                if (projekt.titel.toLowerCase().includes(input) || 
-                    projekt.inhalt.toLowerCase().includes(input) || 
-                    projekt.meta_keywords.toLowerCase().includes(input) || 
+                if (projekt.titel.toLowerCase().includes(input) ||
+                    projekt.inhalt.toLowerCase().includes(input) ||
+                    projekt.meta_keywords.toLowerCase().includes(input) ||
                     projekt.meta_description.toLowerCase().includes(input) ||
                     fuzzyMatch(input, projekt.titel.toLowerCase()) ||
                     fuzzyMatch(input, projekt.inhalt.toLowerCase()) ||
@@ -95,14 +99,30 @@
                     let resultDiv = document.createElement('div');
                     resultDiv.classList.add('result');
                     resultDiv.innerHTML = `
-                        <h3><a href="${projekt.url}">${projekt.titel}</a></h3>
-                        <p>${projekt.inhalt}</p>
+                    <h3><a href="${projekt.url}">${projekt.titel}</a></h3>
+                    <p>${projekt.inhalt}</p>
                     `;
                     resultsDiv.appendChild(resultDiv);
                 }
             });
         }
     </script>
+    <!-- Hier wird der Footer geladen -->
+    <div id="footer-placeholder"></div>
 
+    <!-- JavaScript zum Laden des Footers -->
+    <script>
+        // Funktion zum Laden des Footers
+        function loadFooter() {
+            fetch('../footer.html') // Datei footer.html abrufen
+            .then(response => response.text()) // Inhalt als Text lesen
+            .then(data => {
+                document.getElementById('footer-placeholder').innerHTML = data;
+            });
+        }
+
+        // Footer laden, sobald die Seite vollständig geladen ist
+        window.onload = loadFooter;
+    </script>
 </body>
 </html>
