@@ -1,19 +1,55 @@
+<!DOCTYPE html>
+<head>
+
+    <meta name="language" content="de">
+    <meta charset="UTF-8">
+    <meta name="keywords" content="CONTENT STICHWÖRTER">
+    <meta name="description" content="CONTENT">
+    <meta name="robots" content="index,follow">
+    <meta name="revisit-after" content="100 days">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="home.ico" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TITEL</title>
+
+    <!-- Cloudflare Web Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "434cdbd330004239a922a01e6f7e1238"}'></script>
+    <!-- End Cloudflare Web Analytics -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+</head>
+<header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="nuetzlich/nuetzlich.html">Nützliche Dinge</a>
+        <a href="unnuetzlich/unnuetzlich.html">Unnütze Dinge</a>
+        <a href="games/games.html">Games</a>
+        <a href="impressum.html">Kontakt</a>
+    </nav>
+</header>
+<div class="hero">
+    <h1>Willkommen auf der nützlichsten unnützen Seite im Web!</h1>
+    <p>
+        Entdecke nützliche und unnütze Dinge sowie tolle Spiele.
+    </p>
+</div>
 
 
-    <!-- Hier wird der Footer geladen -->
-    <div id="footer-placeholder"></div>
+<!-- Hier wird der Footer geladen -->
+<div id="footer-placeholder"></div>
 
-    <!-- JavaScript zum Laden des Footers -->
-    <script>
-        // Funktion zum Laden des Footers
-        function loadFooter() {
-            fetch('../footer.html') // Datei footer.html abrufen
-            .then(response => response.text()) // Inhalt als Text lesen
-            .then(data => {
-                document.getElementById('footer-placeholder').innerHTML = data;
-            });
-        }
+<!-- JavaScript zum Laden des Footers -->
+<script>
+    // Funktion zum Laden des Footers
+    function loadFooter() {
+        fetch('../footer.html') // Datei footer.html abrufen
+        .then(response => response.text()) // Inhalt als Text lesen
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        });
+    }
 
-        // Footer laden, sobald die Seite vollständig geladen ist
-        window.onload = loadFooter;
-    </script>
+    // Footer laden, sobald die Seite vollständig geladen ist
+    window.onload = loadFooter;
+</script>
